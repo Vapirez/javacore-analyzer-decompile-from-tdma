@@ -1538,7 +1538,7 @@ public class FileTask {
                             while (true) {
 //                                String baseStr;
 //                                int index_nid;
-                                int l;
+//                                int l;
                                 if (line == null) {
                                     if (td.deadlock != null && td.deadlock.size() != 0) {
                                         boolean inTID = true;
@@ -1637,8 +1637,8 @@ public class FileTask {
                                                     if (k < 0) {
                                                         k = m;
                                                     } else {
-                                                        l = Math.min(k, m);
-                                                        k = l;
+                                                        int o = Math.min(k, m);
+                                                        k = o;
                                                     }
 
                                                     if (k >= 0) {
