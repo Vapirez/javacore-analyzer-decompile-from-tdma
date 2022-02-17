@@ -1002,7 +1002,8 @@ public class FileTask {
     }
 
     public void go() {
-        this.new ActualTask();
+        numberFormatter.setMaximumFractionDigits(2);
+        this.processThreadDump(this.file, true);
     }
 
     private String hangSummary(CompareTableModel cTableModel) {
@@ -4363,13 +4364,6 @@ public class FileTask {
         }
 
         return ThreadFrame.getCopyFriendlyString(stackTrace + "</table>");
-    }
-
-    class ActualTask {
-        ActualTask() {
-            FileTask.numberFormatter.setMaximumFractionDigits(2);
-            FileTask.this.processThreadDump(FileTask.this.file, true);
-        }
     }
 
     class BufferedReaderWrapper {
