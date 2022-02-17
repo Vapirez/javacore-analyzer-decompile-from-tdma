@@ -2171,7 +2171,7 @@ public class FileTask {
 //                                String Xscminjitdata;
                                 if (line.startsWith(enviromentVariables)) {
                                     td.summary = td.summary + "<LI> Environment Variables Analysis <BR><BR><table border=\"1\"><col width=50%></col><col width=50%></col><caption align=\"bottom\">Environment Variable</caption><tr><th>Environment Variable</th><th>Value</th></tr>";
-                                    l = enviromentVariables.length() + 1;
+                                    int l = enviromentVariables.length() + 1;
 
                                     while (line.indexOf(enviromentVariables) >= 0) {
                                         line = line.substring(l).trim();
@@ -2309,7 +2309,7 @@ public class FileTask {
                                                 rightRenderer = new DefaultTableCellRenderer();
                                                 rightRenderer.setHorizontalAlignment(4);
 
-                                                for (l = 1; l <= 6; ++l) {
+                                                for (int l = 1; l <= 6; ++l) {
                                                     td.memorySegment.getColumnModel().getColumn(l).setCellRenderer(rightRenderer);
                                                 }
                                             }
@@ -2692,7 +2692,7 @@ public class FileTask {
                                             rightRenderer = new DefaultTableCellRenderer();
                                             rightRenderer.setHorizontalAlignment(4);
 
-                                            for (l = 1; l <= 6; ++l) {
+                                            for (int l = 1; l <= 6; ++l) {
                                                 td.memorySegment.getColumnModel().getColumn(l).setCellRenderer(rightRenderer);
                                             }
                                         }
