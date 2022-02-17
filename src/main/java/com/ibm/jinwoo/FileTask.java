@@ -2997,32 +2997,31 @@ public class FileTask {
                                         String Xscmaxjitdata = "";
                                         String Xscminaot = "";
                                         String Xscminjitdata = "";
-                                        //tips-这里l2原本是l，报变量重复定义所以修改了变量名
-                                        for (int l2 = 0; l2 < tokens.length; ++l2) {
-                                            if (tokens[l2].startsWith("-Xscmaxaot")) {
-                                                Xscmaxaot = "<LI>-Xscmaxaot (Maximum number of bytes in the cache that can be used for AOT data) : " + tokens[l2].substring(10) + "<BR>";
-                                            } else if (tokens[l2].startsWith("-Xscmaxjitdata")) {
-                                                Xscmaxjitdata = "<LI>-Xscmaxjitdata (Maximum number of bytes in the class cache that can be used for JIT data) : " + tokens[l2].substring(14) + "<BR>";
-                                            } else if (tokens[l2].startsWith("-Xscminaot")) {
-                                                Xscminaot = "<LI>-Xscminaot(Minimum number of bytes in the cache to reserve for AOT data) : " + tokens[l2].substring(10) + "<BR>";
-                                            } else if (tokens[l2].startsWith("-Xscminjitdata")) {
-                                                Xscminjitdata = "<LI>-Xscminjitdata (Minimum number of bytes in the class cache to reserve for JIT data) : " + tokens[l2].substring(14) + "<BR>";
-                                            } else if (!tokens[l2].startsWith("-Xssi")) {
-                                                if (tokens[l2].startsWith("-Xss")) {
-                                                    Xss = "<LI>-Xss (Maximum stack size for Java threads) : " + tokens[l2].substring(4) + "<BR>";
-                                                } else if (tokens[l2].startsWith("-Xoss")) {
-                                                    Xss = "<LI>-Xoss (Maximum stack size for Java threads) : " + tokens[l2].substring(5) + "<BR>";
-                                                } else if (tokens[l2].startsWith("-Xmt")) {
+                                        for (int l = 0; l < tokens.length; ++l) {
+                                            if (tokens[l].startsWith("-Xscmaxaot")) {
+                                                Xscmaxaot = "<LI>-Xscmaxaot (Maximum number of bytes in the cache that can be used for AOT data) : " + tokens[l].substring(10) + "<BR>";
+                                            } else if (tokens[l].startsWith("-Xscmaxjitdata")) {
+                                                Xscmaxjitdata = "<LI>-Xscmaxjitdata (Maximum number of bytes in the class cache that can be used for JIT data) : " + tokens[l].substring(14) + "<BR>";
+                                            } else if (tokens[l].startsWith("-Xscminaot")) {
+                                                Xscminaot = "<LI>-Xscminaot(Minimum number of bytes in the cache to reserve for AOT data) : " + tokens[l].substring(10) + "<BR>";
+                                            } else if (tokens[l].startsWith("-Xscminjitdata")) {
+                                                Xscminjitdata = "<LI>-Xscminjitdata (Minimum number of bytes in the class cache to reserve for JIT data) : " + tokens[l].substring(14) + "<BR>";
+                                            } else if (!tokens[l].startsWith("-Xssi")) {
+                                                if (tokens[l].startsWith("-Xss")) {
+                                                    Xss = "<LI>-Xss (Maximum stack size for Java threads) : " + tokens[l].substring(4) + "<BR>";
+                                                } else if (tokens[l].startsWith("-Xoss")) {
+                                                    Xss = "<LI>-Xoss (Maximum stack size for Java threads) : " + tokens[l].substring(5) + "<BR>";
+                                                } else if (tokens[l].startsWith("-Xmt")) {
                                                     Xmt = "<LI>-Xmt (Multitenant JVM process model) : Enabled<BR>";
-                                                } else if (tokens[l2].startsWith("-Xscmx")) {
-                                                    Xscmx = "<LI>-Xscmx (Java class data sharing cache size) : " + tokens[l2].substring(6) + "<BR>";
-                                                } else if (!tokens[l2].startsWith("-Xmxcl")) {
-                                                    if (tokens[l2].startsWith("-Xmx")) {
-                                                        xmx = "<LI>Java Heap Information<BR><UL><LI>-Xmx (Maximum Java heap size) : " + tokens[l2].substring(4) + "<BR>";
-                                                    } else if (tokens[l2].startsWith("-Xmso")) {
-                                                        xmso = "<LI>-Xmso (Initial Java stack size for operating system threads) : " + tokens[l2].substring(5) + "<BR>";
-                                                    } else if (tokens[l2].startsWith("-Xms")) {
-                                                        xms = "<LI>-Xms (Initial Java heap size) : " + tokens[l2].substring(4) + "<BR>";
+                                                } else if (tokens[l].startsWith("-Xscmx")) {
+                                                    Xscmx = "<LI>-Xscmx (Java class data sharing cache size) : " + tokens[l].substring(6) + "<BR>";
+                                                } else if (!tokens[l].startsWith("-Xmxcl")) {
+                                                    if (tokens[l].startsWith("-Xmx")) {
+                                                        xmx = "<LI>Java Heap Information<BR><UL><LI>-Xmx (Maximum Java heap size) : " + tokens[l].substring(4) + "<BR>";
+                                                    } else if (tokens[l].startsWith("-Xmso")) {
+                                                        xmso = "<LI>-Xmso (Initial Java stack size for operating system threads) : " + tokens[l].substring(5) + "<BR>";
+                                                    } else if (tokens[l].startsWith("-Xms")) {
+                                                        xms = "<LI>-Xms (Initial Java heap size) : " + tokens[l].substring(4) + "<BR>";
                                                     }
                                                 }
                                             }
