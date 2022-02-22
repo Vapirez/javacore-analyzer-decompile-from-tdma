@@ -5,6 +5,11 @@
 
 package com.ibm.jinwoo;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,13 +33,6 @@ import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.regex.Pattern;
-import javax.swing.JComponent;
-import javax.swing.JTable;
-import javax.swing.JTree;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 public class FileTask {
     private static final String userLimit = "2CIUSERLIMIT";
@@ -203,72 +201,72 @@ public class FileTask {
         this.lengthOfTask = 1000;
     }
 
-    public FileTask(File[] f, int fileSequenceNumber, String outputHTMLFileName) {
-        this.file = f;
-        this.outputHTMLFileName = outputHTMLFileName;
-        this.lengthOfTask = 1000;
-        this.fileSequenceNumber = fileSequenceNumber;
-    }
-
-    public void checkIdle(String st) {
-        if (st != null && st.length() != 0) {
-            String temp = "";
-            String str = st;
-            byte s = 0;
-
-            while (true) {
-                int p = str.indexOf("(");
-                if (p == -1) {
-                    break;
-                }
-
-                temp = temp + str.substring(s, p);
-                str = str.substring(p + 1);
-                int n = str.indexOf("<BR>");
-                if (n == -1) {
-                    break;
-                }
-
-                str = str.substring(n);
-                s = 0;
-            }
-
-            if (temp.compareTo(idle5) == 0 || temp.compareTo(idle4) == 0) {
-                System.out.println("IDLE");
-            }
-
-        }
-    }
-
-    public void checkIdle(String st, int index) {
-        if (st != null && st.length() != 0) {
-            String temp = "";
-            String str = st;
-            byte s = 0;
-
-            while (true) {
-                int p = str.indexOf("(");
-                if (p == -1) {
-                    break;
-                }
-
-                temp = temp + str.substring(s, p);
-                str = str.substring(p + 1);
-                int n = str.indexOf("<BR>");
-                if (n == -1) {
-                    break;
-                }
-
-                str = str.substring(n);
-                s = 0;
-            }
-
-            if (temp.compareTo(idle5) == 0 || temp.compareTo(idle4) == 0) {
-                System.out.println("IDLE");
-            }
-
-        }
-    }
+//    public FileTask(File[] f, int fileSequenceNumber, String outputHTMLFileName) {
+//        this.file = f;
+//        this.outputHTMLFileName = outputHTMLFileName;
+//        this.lengthOfTask = 1000;
+//        this.fileSequenceNumber = fileSequenceNumber;
+//    }
+//
+//    public void checkIdle(String st) {
+//        if (st != null && st.length() != 0) {
+//            String temp = "";
+//            String str = st;
+//            byte s = 0;
+//
+//            while (true) {
+//                int p = str.indexOf("(");
+//                if (p == -1) {
+//                    break;
+//                }
+//
+//                temp = temp + str.substring(s, p);
+//                str = str.substring(p + 1);
+//                int n = str.indexOf("<BR>");
+//                if (n == -1) {
+//                    break;
+//                }
+//
+//                str = str.substring(n);
+//                s = 0;
+//            }
+//
+//            if (temp.compareTo(idle5) == 0 || temp.compareTo(idle4) == 0) {
+//                System.out.println("IDLE");
+//            }
+//
+//        }
+//    }
+//
+//    public void checkIdle(String st, int index) {
+//        if (st != null && st.length() != 0) {
+//            String temp = "";
+//            String str = st;
+//            byte s = 0;
+//
+//            while (true) {
+//                int p = str.indexOf("(");
+//                if (p == -1) {
+//                    break;
+//                }
+//
+//                temp = temp + str.substring(s, p);
+//                str = str.substring(p + 1);
+//                int n = str.indexOf("<BR>");
+//                if (n == -1) {
+//                    break;
+//                }
+//
+//                str = str.substring(n);
+//                s = 0;
+//            }
+//
+//            if (temp.compareTo(idle5) == 0 || temp.compareTo(idle4) == 0) {
+//                System.out.println("IDLE");
+//            }
+//
+//        }
+//    }
 
     public String getStrippedStackTrace(String str) {
         if (str.indexOf("(") == -1) {
@@ -329,488 +327,488 @@ public class FileTask {
         }
     }
 
-    public void checkIdleOld(String st, int index, ThreadDump td) {
-        if (st != null && st.length() != 0) {
-            String temp = "";
-            String str = st;
-            byte s = 0;
-
-            while (true) {
-                int p = str.indexOf("(");
-                if (p == -1) {
-                    break;
-                }
-
-                int lock = str.substring(s, p).indexOf("- lock");
-                if (lock == -1) {
-                    lock = str.substring(s, p).indexOf("- wait");
-                }
-
-                if (lock != -1) {
-                    str = str.substring(p + 1);
-                } else {
-                    temp = temp + str.substring(s, p);
-                    str = str.substring(p + 1);
-                }
-
-                int n = str.indexOf("<BR>");
-                if (n == -1) {
-                    break;
-                }
-
-                str = str.substring(n);
-                s = 0;
-            }
-
-            if (temp.compareTo(idle5) != 0 && temp.compareTo(idle4) != 0) {
-                if (temp.compareTo(kal4) != 0 && temp.compareTo(kal5) != 0 && temp.compareTo(kalSSL5) != 0 && temp.compareTo(kal04) != 0 && temp.compareTo(kal05) != 0 && temp.compareTo(kalSSL05) != 0) {
-                    if (temp.compareTo(listen) != 0 && temp.compareTo(listenSSL) != 0 && temp.compareTo(listen2SSL) != 0 && temp.compareTo(listen3SSL) != 0) {
-                        if (temp.compareTo(rr4) == 0 || temp.compareTo(rrSSL4) == 0 || temp.compareTo(rr5) == 0 || temp.compareTo(rrSSL5) == 0 || temp.compareTo(rr4) == 0 || temp.compareTo(rrSSL4) == 0 || temp.compareTo(rr5) == 0 || temp.compareTo(rrSSL5) == 0) {
-                            td.macro[index] = 4;
-                        }
-                    } else {
-                        td.macro[index] = 3;
-                    }
-                } else {
-                    td.macro[index] = 2;
-                }
-            } else {
-                td.macro[index] = 1;
-            }
-        }
-    }
-
-    public void checkIdle2(String st, int index, ThreadDump td) {
-        if (st != null && st.length() != 0) {
-            String temp = "";
-            String str = st;
-            byte s = 0;
-
-            while (true) {
-                int p = str.indexOf("(");
-                if (p == -1) {
-                    break;
-                }
-
-                int lock = str.substring(s, p).indexOf("- lock");
-                if (lock == -1) {
-                    lock = str.substring(s, p).indexOf("- wait");
-                }
-
-                if (lock != -1) {
-                    str = str.substring(p + 1);
-                } else {
-                    temp = temp + str.substring(s, p);
-                    str = str.substring(p + 1);
-                }
-
-                int n = str.indexOf("<BR>");
-                if (n == -1) {
-                    break;
-                }
-
-                str = str.substring(n);
-                s = 0;
-            }
-
-            if (temp.compareTo(idle5) != 0 && temp.compareTo(idle4) != 0) {
-                if (temp.compareTo(kal4) != 0 && temp.compareTo(kal5) != 0 && temp.compareTo(kalSSL5) != 0 && temp.compareTo(kal04) != 0 && temp.compareTo(kal05) != 0 && temp.compareTo(kalSSL05) != 0) {
-                    if (temp.compareTo(listen) != 0 && temp.compareTo(listenSSL) != 0 && temp.compareTo(listen2SSL) != 0 && temp.compareTo(listen3SSL) != 0) {
-                        if (temp.compareTo(rr4) == 0 || temp.compareTo(rrSSL4) == 0 || temp.compareTo(rr5) == 0 || temp.compareTo(rrSSL5) == 0 || temp.compareTo(rr4) == 0 || temp.compareTo(rrSSL4) == 0 || temp.compareTo(rr5) == 0 || temp.compareTo(rrSSL5) == 0) {
-                            td.macro[index] = 4;
-                        }
-                    } else {
-                        td.macro[index] = 3;
-                    }
-                } else {
-                    td.macro[index] = 2;
-                }
-            } else {
-                td.macro[index] = 1;
-            }
-
-        }
-    }
-
-    public String generateMonitorDetail(int sn, ThreadDump td) {
-        if (td == null || td.mdump == null) {
-            return null;
-        }
-
-        MonitorModel m = new MonitorModel(td);
-        String id = "_" + sn;
-        String stackArray = "var stacks" + id + " = new Array()\n";
-
-        for (int i = 0; (long) i < td.getTotalThread(); ++i) {
-            stackArray = stackArray + "stacks" + id + "[" + i + "]=\"" + td.getStackTrace(i) + "\"\n";
-        }
-
-        String highLight = "function highLight" + id + "(objref,state,row)\n{\nobjref.style.color = (0 == state) ? '#000000' : '#0000FF'; \n showStackTrace(stacks" + id + "[row]) \n if(state==0) hideStackTrace() \n }\n";
-        String tree = "var openImg = new Image(); \n openImg.src = \"open.gif\"; \n var closeImg = new Image(); \n closeImg.src = \"close.gif\"; \n function changeTree(disp,img) \n { \n var obj = document.getElementById(disp).style; \n if(obj.display == \"block\") \n  obj.display = \"none\"; \n else \n  obj.display = \"block\"; \t\n var Image = document.getElementById(img); \n if(Image.src.indexOf('deadlock.gif')>-1) ; \n else if(Image.src.indexOf('close.gif')>-1) \n  Image.src = openImg.src; \n else \n  Image.src = closeImg.src; \n } ";
-        String javaScript = "\n<script type=\"text/javascript\">\n" + stackArray + "\nfunction showMonStack" + id + "(rowNumber)   { \ndocument.getElementById(\"monStackColumn" + id + "\").innerHTML=stacks" + id + "[rowNumber];\n }\n" + highLight + " " + tree + " </script>\n";
-        String str = "<UL><LI>Monitor Detail : " + td.fileName + "<BR><BR><table border=\"1\"><col width=50%></col><col width=50%></col><caption align=\"bottom\">" + "Monitor Detail : " + td.fileName + "</caption><tr><th>Monitor Owner</th><th>Stack Trace</th></tr><tr><td valign=\"top\"><div class=\"parent\" onClick=\"changeTree('branch" + id + "_" + "1','folder" + id + "_" + "1')\"> \n \t<img src=\"close.gif\" id=\"folder" + id + "_" + "1\">[TotalSize/Size] ThreadName (ObjectName) " + m.getChildCount(m.getRoot()) + "</div>";
-        str = str + "<span class=\"children\" id=\"branch" + id + "_" + "1\">";
-        int seq = 2;
-        boolean pushed = false;
-        Monitor aNode = null;
-        Stack stack = new Stack();
-        for (int i = 0; i < m.getChildCount(m.getRoot()); i++) {
-            stack.push(m.getChild(m.getRoot(), i));
-        }
-
-        int n = -1;
-        while (!stack.empty()) {
-            aNode = (Monitor) stack.pop();
-            n = m.getThreadDumpIndex(aNode);
-            if (aNode.isPop()) {
-                str = str + "</span>\n";
-            } else if (m.isRecursive(aNode)) {
-                if (aNode.isDeadlock) {
-                    if (n >= 0) {
-                        str = str + "<img src=\"deadlock.gif\"><a  onmouseover=\"highLight" + id + "(this,1," + n + ")\" onmouseout=\"highLight" + id + "(this,0)\"  onclick=\"showMonStack" + id + "(" + n + ")\"> " + this.getTreeEntry(m, aNode) + "</a><br>\n";
-                    } else {
-                        str = str + "<img src=\"deadlock.gif\"> " + this.getTreeEntry(m, aNode) + "<br>\n";
-                    }
-                } else if (n >= 0) {
-                    str = str + "<img src=\"leaf.gif\"><a  onmouseover=\"highLight" + id + "(this,1," + n + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showMonStack" + id + "(" + n + ") ; showMonStack" + id + "(" + n + ")\" > " + this.getTreeEntry(m, aNode) + "</a><br>\n";
-                } else {
-                    str = str + "<img src=\"leaf.gif\"><a onclick=\"showMonStack" + id + "(" + n + ")\" >" + this.getTreeEntry(m, aNode) + "</a><br>\n";
-                }
-            } else {
-                if (m.getChildCount(aNode) == 0) {
-                    if (n >= 0) {
-                        str = str + "<img src=\"leaf.gif\"><a  onmouseover=\"highLight" + id + "(this,1," + n + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showMonStack" + id + "(" + n + ")\" > " + this.getTreeEntry(m, aNode) + "</a><br>\n";
-                    } else {
-                        str = str + "<img src=\"leaf.gif\"><a onclick=\"showMonStack" + id + "(" + n + ")\" >" + this.getTreeEntry(m, aNode) + "</a><br>\n";
-                    }
-                } else {
-                    if (aNode.isDeadlock) {
-                        if (n >= 0) {
-                            str = str + "<span class=\"parent\" onClick=\"changeTree('branch" + id + "_" + seq + "','folder" + id + "_" + seq + "')\">\n\t<img src=\"deadlock.gif\" id=\"folder" + id + "_" + seq + "\"><a  onmouseover=\"highLight" + id + "(this,1," + n + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showMonStack" + id + "(" + n + ")\" > " + this.getTreeEntry(m, aNode) + "</a><br>\n </span> \n <span class=\"children\" id=\"branch" + id + "_" + seq + "\"> \n";
-                        } else {
-                            str = str + "<span class=\"parent\" onClick=\"changeTree('branch" + id + "_" + seq + "','folder" + id + "_" + seq + "') ; showMonStack" + id + "(" + n + ")\" >\n\t<img src=\"deadlock.gif\" id=\"folder" + id + "_" + seq + "\"> " + this.getTreeEntry(m, aNode) + "<br>\n </span> \n <span class=\"children\" id=\"branch" + id + "_" + seq + "\"> \n";
-                        }
-                    } else if (n >= 0) {
-                        str = str + "<span class=\"parent\" onClick=\"changeTree('branch" + id + "_" + seq + "','folder" + id + "_" + seq + "') ; showMonStack" + id + "(" + n + ")\" >\n\t<img src=\"close.gif\" id=\"folder" + id + "_" + seq + "\"><a  onmouseover=\"highLight" + id + "(this,1," + n + ")\" onmouseout=\"highLight" + id + "(this,0)\" >  " + this.getTreeEntry(m, aNode) + "</a><br>\n </span> \n <span class=\"children\" id=\"branch" + id + "_" + seq + "\"> \n";
-                    } else {
-                        str = str + "<span class=\"parent\" onClick=\"changeTree('branch" + id + "_" + seq + "','folder" + id + "_" + seq + "') ; showMonStack" + id + "(" + n + ")\" >\n\t<img src=\"close.gif\" id=\"folder" + id + "_" + seq + "\"> " + this.getTreeEntry(m, aNode) + "<br>\n </span> \n <span class=\"children\" id=\"branch" + id + "_" + seq + "\"> \n";
-                    }
-
-                    ++seq;
-                    aNode.isPop = true;
-                    stack.push(aNode);
-                }
-
-                if (m.getChildCount(aNode) > 0) {
-                    for (int i = 0; i < m.getChildCount(aNode); ++i) {
-                        Monitor cNode = (Monitor) m.getChild(aNode, i);
-                        if (!cNode.visited) {
-                            cNode.visited = true;
-                            stack.push(cNode);
-                        }
-                    }
-                }
-            }
-        }
-        str = str + "</span></td><td id=\"monStackColumn" + id + "\" valign=\"top\" >Click on entries to display stack traces</td></tr></table>";
-        return javaScript + str + "</UL>";
-    }
-
-    public String generateReport(ThreadInfo ti) {
-        StringBuffer output = new StringBuffer();
-        output.append("<UL>");
-
-        for (int i = 0; i < ti.threadDumps.size(); ++i) {
-            output.append("<li><a href=\"#T" + i + "\">Java Thread Dump Individual Analysis : " + ((ThreadDump) ti.threadDumps.get(i)).fileName + "</a><br>");
-            output.append("<ul><li><a href=\"#TS" + i + "\">Thread Status Analysis</a><br>");
-            output.append("<li><a href=\"#TM" + i + "\">Thread Method Analysis</a><br>");
-            output.append("<li><a href=\"#TD" + i + "\">Thread Detail  Analysis</a><br><br></ul>");
-            output.append("<li><a href=\"#M" + i + "\">Java Monitor Dump Individual Analysis : " + ((ThreadDump) ti.threadDumps.get(i)).fileName + "</a><br><br>");
-        }
-
-        if (ti.threadDumps.size() > 1) {
-            output.append("<li><a href=\"#C\">Java Thread Dump Comparison Analysis</a>");
-            output.append("<UL><li><a href=\"#CS\">Thread Comparison Summary</a>");
-            output.append("<li><a href=\"#CD\">Thread Comparison Detail</a></UL>");
-            output.append("</UL><br><br>");
-        } else {
-            output.append("<li>Java Thread Dump Comparison Analysis : Not available for a single thread dump");
-            output.append("</UL><br><br>");
-        }
-
-        String temp = null;
-
-        for (int i = 0; i < ti.threadDumps.size(); ++i) {
-            output.append("<H2><a name=\"T" + i + "\">Java Thread Dump Individual Analysis</a></H2>");
-            output.append("<UL>");
-            output.append(((ThreadDump) ti.threadDumps.get(i)).warning);
-            output.append(((ThreadDump) ti.threadDumps.get(i)).summary);
-            output.append("</UL>");
-            output.append("<BR>");
-            output.append(this.generateThreadSummary(i, (ThreadDump) ti.threadDumps.get(i)));
-            output.append(BTT);
-            output.append("<BR>");
-            output.append(this.generateThreadDetail(i, (ThreadDump) ti.threadDumps.get(i)));
-            output.append(BTT);
-            output.append("<BR>");
-            output.append("<H2><a name=\"M" + i + "\">Java Monitor Dump Individual Analysis</a></H2>");
-            temp = this.generateMonitorDetail(i, (ThreadDump) ti.threadDumps.get(i));
-            if (temp == null) {
-                output.append("<BR>Monitor dump is not available in " + ((ThreadDump) ti.threadDumps.get(i)).fileName);
-            } else {
-                output.append(temp);
-            }
-
-            output.append("<BR>");
-            output.append(BTT);
-        }
-
-        if (ti.threadDumps.size() > 1) {
-            output.append("<H2><a name=\"C\">Java Thread Dump Comparison Analysis</a></H2>");
-            output.append(this.generateThreadComparison(ti));
-            output.append(BTT);
-        }
-
-        return output.toString();
-    }
-
-    public String generateThreadComparison(ThreadInfo ti) {
-        if (ti == null) {
-            return "";
-        } else if (ti.threadDumps == null) {
-            return "";
-        } else if (ti.threadDumps.size() < 2) {
-            return "";
-        } else {
-            String id = "comp";
-            ThreadDump[] td = new ThreadDump[ti.threadDumps.size()];
-
-            for (int i = 0; i < ti.threadDumps.size(); ++i) {
-                td[i] = (ThreadDump) ti.threadDumps.get(i);
-            }
-
-            CompareTableModel model = new CompareTableModel(td);
-            String stackArray = "var stacks" + id + " = [";
-
-            for (int i = 0; i < model.getRowCount(); ++i) {
-                for (int j = 1; j < model.getColumnCount(); ++j) {
-                    if (j == 1) {
-                        stackArray = stackArray + "[\"" + model.getStack(i, j - 1) + "\"";
-                    } else {
-                        stackArray = stackArray + ",\"" + model.getStack(i, j - 1) + "\"";
-                    }
-                }
-
-                stackArray = stackArray + "],\n";
-            }
-
-            stackArray = stackArray + "];\n";
-            String highLight = "function highLight" + id + "(objref,state,row,col)\n{\nobjref.style.color = (0 == state) ? '#000000' : '#0000FF';\n showStackTrace(stackscomp[row][col]); \n  if(state==0) hideStackTrace();  }\n";
-            String javaScript = "\n<script type=\"text/javascript\">\n" + stackArray + "\nfunction showStack" + id + "(rowNumber,columnNumber)   { \ndocument.getElementById(\"stackColumn" + id + "\").innerHTML=stacks" + id + "[rowNumber][columnNumber];\n }\n" + highLight + " </script>\n";
-            String str = "<UL><LI><a name=\"CS\">Thread Comparison Summary</a><BR><BR>" + this.generateThreadComparisonSummary(td) + this.hangSummary(model) + "</UL><BR><BR>" + "<LI><a name=\"CD\">Thread Comparison Detail</a><BR><BR><table border=\"1\"><col width=20%></col><col width=20%></col><col width=20%></col><col width=40%></col><caption align=\"bottom\">Thread Comparison Detail</caption><tr><th>Thread Name</th>";
-
-            for (int i = 0; i < td.length; ++i) {
-                str = str + "<th>" + td[i].fileName + "</th>";
-            }
-
-            str = str + "<th>Stack Trace</th></tr>";
-
-            for (int i = 0; i < model.getRowCount(); ++i) {
-                str = str + "<tr><td>" + model.getValueAt(i, 0) + "</font></a></td>";
-
-                for (int j = 0; j < td.length; ++j) {
-                    //tips-删除了颜色函数-采集数据不需要
-//                    str = str + "<td " + this.getStateBGColor(model, i, j + 1) + "><a  style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + "," + j + ")\" onmouseout=\"highLight" + id + "(this,0," + i + "," + j + ")\" onclick=\"showStack" + id + "(" + i + "," + j + ")\"><font " + this.getStateColor(model, i, j + 1) + ">" + (model.getValueAt(i, j + 1) == null ? "NO THREAD" : model.getValueAt(i, j + 1)) + "</font></a></td>";
-                    str = str + "<td " + "><a  style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + "," + j + ")\" onmouseout=\"highLight" + id + "(this,0," + i + "," + j + ")\" onclick=\"showStack" + id + "(" + i + "," + j + ")\"><font " + ">" + (model.getValueAt(i, j + 1) == null ? "NO THREAD" : model.getValueAt(i, j + 1)) + "</font></a></td>";
-                }
-
-                if (i == 0) {
-                    str = str + "<td\t id=\"stackColumn" + id + "\" rowspan=\"" + model.getRowCount() + "\" valign=\"top\" >Click on threads to display stack traces</td></tr>";
-                } else {
-                    str = str + "</tr>";
-                }
-            }
-
-            return javaScript + str + "</table></UL>";
-        }
-    }
-
-    public String generateThreadComparisonSummary(ThreadDump[] td) {
-        String compareSummary = "<UL>";
-        if (td[0].pid != -1L) {
-            if (!this.isSamePID(td)) {
-                compareSummary = compareSummary + "<LI>WARNING!! Thread dumps are taken from different processes.Further analysis is not meaningful<BR><BR>";
-            } else {
-                compareSummary = compareSummary + "<LI>Process ID : " + td[0].pid + "<BR><BR>";
-            }
-        }
-
-        compareSummary = compareSummary + "<LI>List of files compared<UL><BR>";
-
-        int i;
-        for (i = 0; i < td.length; ++i) {
-            compareSummary = compareSummary + "<LI>" + td[i].fileName + "<BR>";
-        }
-
-        compareSummary = compareSummary + "</UL><BR>";
-        long endTime;
-        long startTime = endTime = td[0].timeStamp;
-        if (startTime != -1L) {
-            long endGC;
-            long startGC = endGC = td[0].gc;
-            long endAF;
-            long startAF = endAF = td[0].af;
-
-            for (i = 0; i < td.length; ++i) {
-                if (startTime > td[i].timeStamp) {
-                    startTime = td[i].timeStamp;
-                    startGC = td[i].gc;
-                    startAF = td[i].af;
-                }
-
-                if (endTime < td[i].timeStamp) {
-                    endTime = td[i].timeStamp;
-                    endGC = td[i].gc;
-                    endAF = td[i].af;
-                }
-            }
-
-            float min = (float) (endTime - startTime) / 60000.0F;
-            compareSummary = compareSummary + "<LI>First Dump : " + new Date(startTime) + "<BR><BR><LI>Last Dump : " + new Date(endTime) + "<BR><BR>";
-            if (startGC != -1L) {
-                if (min != 0.0F) {
-                    if (td[0].isJ9) {
-                        compareSummary = compareSummary + "<LI>Global Collections per Minute : " + (float) (endGC - startGC) / min + "<BR><BR><LI>Scavenge Collections per Minute : " + (float) (endAF - startAF) / min + "<BR><BR>";
-                    } else {
-                        compareSummary = compareSummary + "<LI>Garbage Collections per Minute : " + (float) (endGC - startGC) / min + "<BR><BR><LI>Allocation Failures per Minute : " + (float) (endAF - startAF) / min + "<BR><BR>";
-                    }
-                }
-
-                long t = (endTime - startTime) / 1000L;
-                long s = t % 60L;
-                long m = t / 60L % 60L;
-                long h = t / 60L / 60L % 24L;
-                long d = t / 60L / 60L / 24L;
-                if (t != 0L && s + m + h + d != 0L) {
-                    compareSummary = compareSummary + "<LI>Elapsed Time : " + (d == 0L ? "" : d + " Day(s) ") + (h == 0L ? "" : h + " Hour(s) ") + (m == 0L ? "" : m + " Minute(s) ") + (s == 0L ? "" : s + " Second(s)" + "<BR><BR>");
-                }
-            }
-        }
-
-        return compareSummary;
-    }
-
-    public String generateThreadDetail(int sn, ThreadDump td) {
-        String id = "_" + sn;
-        String stackArray = "var stacks" + id + " = new Array()\n";
-
-        for (int i = 0; (long) i < td.getTotalThread(); ++i) {
-            stackArray = stackArray + "stacks" + id + "[" + i + "]=\"" + td.getStackTrace(i) + "\"\n";
-        }
-
-        String highLight = "function highLight" + id + "(objref,state,row)\n{\nobjref.style.color = (0 == state) ? '#000000' : '#0000FF'; \n showStackTrace(stacks" + id + "[row]) \n if(state==0) hideStackTrace() \n }\n";
-        String javaScript = "\n<script type=\"text/javascript\">\n" + stackArray + "\nfunction showStack" + id + "(rowNumber)   { \ndocument.getElementById(\"stackColumn" + id + "\").innerHTML=stacks" + id + "[rowNumber];\n }\n" + highLight + " </script>\n";
-        String str = "<UL><LI><a name=\"TD" + sn + "\">Thread Detail : " + td.fileName + "</a><BR><BR><table border=\"1\"><col width=20%></col><col width=20%></col><col width=30%></col><col width=30%></col><caption align=\"bottom\">" + "Thread Detail : " + td.fileName + "</caption><tr><th>Name</th><th>State</th><th>Method</th><th>Stack Trace</th></tr>";
-        //tips-去除颜色函数
-//        str = str + "<tr><td><a style=\"cursor:hand\" onmouseover=\"highLight" + id + "(this,1,0)\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(0)\">" + td.getName(0) + "</a></td><td " + this.getStateColor(td, 0) + "<a style=\"cursor:hand\" onmouseover=\"highLight" + id + "(this,1,0)\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(0)\">" + td.getState(0) + "</a></td><td><a style=\"cursor:hand\" onmouseover=\"highLight" + id + "(this,1,0)\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(0)\">" + td.getCurrentMethod(0) + "</a></td><td\t id=\"stackColumn" + id + "\" rowspan=\"" + td.getTotalThread() + "\" valign=\"top\" >Click on threads to display stack traces</td></tr>";
-        str = str + "<tr><td><a style=\"cursor:hand\" onmouseover=\"highLight" + id + "(this,1,0)\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(0)\">" + td.getName(0) + "</a></td><td " + "<a style=\"cursor:hand\" onmouseover=\"highLight" + id + "(this,1,0)\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(0)\">" + td.getState(0) + "</a></td><td><a style=\"cursor:hand\" onmouseover=\"highLight" + id + "(this,1,0)\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(0)\">" + td.getCurrentMethod(0) + "</a></td><td\t id=\"stackColumn" + id + "\" rowspan=\"" + td.getTotalThread() + "\" valign=\"top\" >Click on threads to display stack traces</td></tr>";
-
-        for (int i = 1; (long) i < td.getTotalThread(); ++i) {
-            //tips-去除颜色函数
-//            str = str + "<tr><td><a style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(" + i + ")\">" + td.getName(i) + "</a></td><td " + this.getStateColor(td, i) + " ><a  style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(" + i + ")\">" + td.getState(i) + "</a></td><td><a style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(" + i + ")\">" + td.getCurrentMethod(i) + "</a></td></tr>";
-            str = str + "<tr><td><a style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(" + i + ")\">" + td.getName(i) + "</a></td><td " + " ><a  style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(" + i + ")\">" + td.getState(i) + "</a></td><td><a style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(" + i + ")\">" + td.getCurrentMethod(i) + "</a></td></tr>";
-        }
-
-        return javaScript + str + "</table></UL>";
-    }
-
-    public String generateThreadSummary(int sn, ThreadDump td) {
-        if (td != null) {
-            long total = td.getTotalThread();
-            long runnable = td.getRunnable();
-            long condition = td.getWCondition();
-            long monitor = td.getWMonitor();
-            long suspended = td.getSuspended();
-            long wait = td.getOWait();
-            long blocked = td.getBlocked();
-            long parked = td.getParked();
-            //tips-去除颜色函数
-//            String summary = "<UL><LI><a name=\"TS" + sn + "\">Thread Status Analysis</a><BR><BR><table border=\"1\"><tr><th>Status</th><th>Number of Threads : " + total + "</th><th>Percentage</th></tr><tr><td bgcolor=\"#" + this.getHTMLColor(this.cfg == null ? Analyzer.runnable : Analyzer.runnable) + "\">Runnable</td><td>" + runnable + "</td><td>" + Math.round((float) runnable * 100.0F / (float) total) + " (%)</td></tr><tr><td bgcolor=\"#" + this.getHTMLColor(this.cfg == null ? Analyzer.condition : Analyzer.condition) + "\">Waiting on condition</td><td>" + condition + "</td><td>" + Math.round((float) condition * 100.0F / (float) total) + " (%)</td></tr><tr><td bgcolor=\"#" + this.getHTMLColor(this.cfg == null ? Analyzer.monitor : Analyzer.monitor) + "\">Waiting on monitor</td><td>" + monitor + "</td><td>" + Math.round((float) monitor * 100.0F / (float) total) + " (%)</td></tr><tr><td bgcolor=\"#" + this.getHTMLColor(this.cfg == null ? Analyzer.suspended : Analyzer.suspended) + "\">Suspended</td><td>" + suspended + "</td><td>" + Math.round((float) suspended * 100.0F / (float) total) + " (%)</td></tr><tr><td bgcolor=\"#" + this.getHTMLColor(this.cfg == null ? Analyzer.object : Analyzer.object) + "\">Object.wait()</td><td>" + wait + "</td><td>" + Math.round((float) wait * 100.0F / (float) total) + " (%)</td></tr><tr><td bgcolor=\"#" + this.getHTMLColor(this.cfg == null ? Analyzer.blocked : Analyzer.blocked) + "\">Blocked</td><td>" + blocked + "</td><td>" + Math.round((float) blocked * 100.0F / (float) total) + " (%)</td></tr><tr><td bgcolor=\"#" + this.getHTMLColor(this.cfg == null ? Analyzer.park : Analyzer.park) + "\">Parked</td><td>" + parked + "</td><td>" + Math.round((float) parked * 100.0F / (float) total) + " (%)</td></tr></table></UL>";
-            String summary = "<UL><LI><a name=\"TS" + sn + "\">Thread Status Analysis</a><BR><BR><table border=\"1\"><tr><th>Status</th><th>Number of Threads : " + total + "</th><th>Percentage</th></tr><tr><td bgcolor=\"#" + "\">Runnable</td><td>" + runnable + "</td><td>" + Math.round((float) runnable * 100.0F / (float) total) + " (%)</td></tr><tr><td " + ">Waiting on condition</td><td>" + condition + "</td><td>" + Math.round((float) condition * 100.0F / (float) total) + " (%)</td></tr><tr><td " + ">Waiting on monitor</td><td>" + monitor + "</td><td>" + Math.round((float) monitor * 100.0F / (float) total) + " (%)</td></tr><tr><td " + ">Suspended</td><td>" + suspended + "</td><td>" + Math.round((float) suspended * 100.0F / (float) total) + " (%)</td></tr><tr><td " + ">Object.wait()</td><td>" + wait + "</td><td>" + Math.round((float) wait * 100.0F / (float) total) + " (%)</td></tr><tr><td " + ">Blocked</td><td>" + blocked + "</td><td>" + Math.round((float) blocked * 100.0F / (float) total) + " (%)</td></tr><tr><td" + ">Parked</td><td>" + parked + "</td><td>" + Math.round((float) parked * 100.0F / (float) total) + " (%)</td></tr></table></UL>";
-            return summary + "<br>" + td.getMethodSummary(sn);
-        } else {
-            return "";
-        }
-    }
-
-    public String getAddress(String str) {
-        if (str != null && str.length() != 0) {
-            int open = str.indexOf("(");
-            int close = str.indexOf(")");
-            if (open != -1 && close != -1) {
-                long value = Long.decode(str.substring(open + 1, close));
-                System.out.println("value:" + value);
-                return str.substring(open + 1, close);
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-
-    long getCompleted(int idx) {
-        if (this.gi.completed[idx] != 0L) {
-            return this.gi.completed[idx];
-        } else if (this.gi.gccompleted[idx] == 0L) {
-            return 0L;
-        } else {
-            for (int i = idx; i < this.gi.free.length; ++i) {
-                if (this.gi.completed[i] != 0L) {
-                    return this.gi.completed[i];
-                }
-            }
-
-            return 0L;
-        }
-    }
-
-    public int getCurrent() {
-        return this.current;
-    }
-
-    public int getLengthOfTask() {
-        return this.lengthOfTask;
-    }
-
-    public String getMessage() {
-        return this.statMessage;
-    }
-
-    public String getName(String str) {
-        if (str != null && str.length() != 0) {
-            int open = str.indexOf("(");
-            return open == -1 ? null : str.substring(0, open);
-        } else {
-            return null;
-        }
-    }
-
-    public int getNumberOfChar(String str, char c) {
-        int count = 0;
-        for (int newIndex = 0; (newIndex = str.indexOf(c)) >= 0; ) {
-            count++;
-            if (newIndex >= str.length())
-                break;
-            str = str.substring(newIndex + 1);
-        }
-
-        return count;
-    }
-
-    public int getOverall() {
-        return this.overall;
-    }
+//    public void checkIdleOld(String st, int index, ThreadDump td) {
+//        if (st != null && st.length() != 0) {
+//            String temp = "";
+//            String str = st;
+//            byte s = 0;
+//
+//            while (true) {
+//                int p = str.indexOf("(");
+//                if (p == -1) {
+//                    break;
+//                }
+//
+//                int lock = str.substring(s, p).indexOf("- lock");
+//                if (lock == -1) {
+//                    lock = str.substring(s, p).indexOf("- wait");
+//                }
+//
+//                if (lock != -1) {
+//                    str = str.substring(p + 1);
+//                } else {
+//                    temp = temp + str.substring(s, p);
+//                    str = str.substring(p + 1);
+//                }
+//
+//                int n = str.indexOf("<BR>");
+//                if (n == -1) {
+//                    break;
+//                }
+//
+//                str = str.substring(n);
+//                s = 0;
+//            }
+//
+//            if (temp.compareTo(idle5) != 0 && temp.compareTo(idle4) != 0) {
+//                if (temp.compareTo(kal4) != 0 && temp.compareTo(kal5) != 0 && temp.compareTo(kalSSL5) != 0 && temp.compareTo(kal04) != 0 && temp.compareTo(kal05) != 0 && temp.compareTo(kalSSL05) != 0) {
+//                    if (temp.compareTo(listen) != 0 && temp.compareTo(listenSSL) != 0 && temp.compareTo(listen2SSL) != 0 && temp.compareTo(listen3SSL) != 0) {
+//                        if (temp.compareTo(rr4) == 0 || temp.compareTo(rrSSL4) == 0 || temp.compareTo(rr5) == 0 || temp.compareTo(rrSSL5) == 0 || temp.compareTo(rr4) == 0 || temp.compareTo(rrSSL4) == 0 || temp.compareTo(rr5) == 0 || temp.compareTo(rrSSL5) == 0) {
+//                            td.macro[index] = 4;
+//                        }
+//                    } else {
+//                        td.macro[index] = 3;
+//                    }
+//                } else {
+//                    td.macro[index] = 2;
+//                }
+//            } else {
+//                td.macro[index] = 1;
+//            }
+//        }
+//    }
+//
+//    public void checkIdle2(String st, int index, ThreadDump td) {
+//        if (st != null && st.length() != 0) {
+//            String temp = "";
+//            String str = st;
+//            byte s = 0;
+//
+//            while (true) {
+//                int p = str.indexOf("(");
+//                if (p == -1) {
+//                    break;
+//                }
+//
+//                int lock = str.substring(s, p).indexOf("- lock");
+//                if (lock == -1) {
+//                    lock = str.substring(s, p).indexOf("- wait");
+//                }
+//
+//                if (lock != -1) {
+//                    str = str.substring(p + 1);
+//                } else {
+//                    temp = temp + str.substring(s, p);
+//                    str = str.substring(p + 1);
+//                }
+//
+//                int n = str.indexOf("<BR>");
+//                if (n == -1) {
+//                    break;
+//                }
+//
+//                str = str.substring(n);
+//                s = 0;
+//            }
+//
+//            if (temp.compareTo(idle5) != 0 && temp.compareTo(idle4) != 0) {
+//                if (temp.compareTo(kal4) != 0 && temp.compareTo(kal5) != 0 && temp.compareTo(kalSSL5) != 0 && temp.compareTo(kal04) != 0 && temp.compareTo(kal05) != 0 && temp.compareTo(kalSSL05) != 0) {
+//                    if (temp.compareTo(listen) != 0 && temp.compareTo(listenSSL) != 0 && temp.compareTo(listen2SSL) != 0 && temp.compareTo(listen3SSL) != 0) {
+//                        if (temp.compareTo(rr4) == 0 || temp.compareTo(rrSSL4) == 0 || temp.compareTo(rr5) == 0 || temp.compareTo(rrSSL5) == 0 || temp.compareTo(rr4) == 0 || temp.compareTo(rrSSL4) == 0 || temp.compareTo(rr5) == 0 || temp.compareTo(rrSSL5) == 0) {
+//                            td.macro[index] = 4;
+//                        }
+//                    } else {
+//                        td.macro[index] = 3;
+//                    }
+//                } else {
+//                    td.macro[index] = 2;
+//                }
+//            } else {
+//                td.macro[index] = 1;
+//            }
+//
+//        }
+//    }
+
+//    public String generateMonitorDetail(int sn, ThreadDump td) {
+//        if (td == null || td.mdump == null) {
+//            return null;
+//        }
+//
+//        MonitorModel m = new MonitorModel(td);
+//        String id = "_" + sn;
+//        String stackArray = "var stacks" + id + " = new Array()\n";
+//
+//        for (int i = 0; (long) i < td.getTotalThread(); ++i) {
+//            stackArray = stackArray + "stacks" + id + "[" + i + "]=\"" + td.getStackTrace(i) + "\"\n";
+//        }
+//
+//        String highLight = "function highLight" + id + "(objref,state,row)\n{\nobjref.style.color = (0 == state) ? '#000000' : '#0000FF'; \n showStackTrace(stacks" + id + "[row]) \n if(state==0) hideStackTrace() \n }\n";
+//        String tree = "var openImg = new Image(); \n openImg.src = \"open.gif\"; \n var closeImg = new Image(); \n closeImg.src = \"close.gif\"; \n function changeTree(disp,img) \n { \n var obj = document.getElementById(disp).style; \n if(obj.display == \"block\") \n  obj.display = \"none\"; \n else \n  obj.display = \"block\"; \t\n var Image = document.getElementById(img); \n if(Image.src.indexOf('deadlock.gif')>-1) ; \n else if(Image.src.indexOf('close.gif')>-1) \n  Image.src = openImg.src; \n else \n  Image.src = closeImg.src; \n } ";
+//        String javaScript = "\n<script type=\"text/javascript\">\n" + stackArray + "\nfunction showMonStack" + id + "(rowNumber)   { \ndocument.getElementById(\"monStackColumn" + id + "\").innerHTML=stacks" + id + "[rowNumber];\n }\n" + highLight + " " + tree + " </script>\n";
+//        String str = "<UL><LI>Monitor Detail : " + td.fileName + "<BR><BR><table border=\"1\"><col width=50%></col><col width=50%></col><caption align=\"bottom\">" + "Monitor Detail : " + td.fileName + "</caption><tr><th>Monitor Owner</th><th>Stack Trace</th></tr><tr><td valign=\"top\"><div class=\"parent\" onClick=\"changeTree('branch" + id + "_" + "1','folder" + id + "_" + "1')\"> \n \t<img src=\"close.gif\" id=\"folder" + id + "_" + "1\">[TotalSize/Size] ThreadName (ObjectName) " + m.getChildCount(m.getRoot()) + "</div>";
+//        str = str + "<span class=\"children\" id=\"branch" + id + "_" + "1\">";
+//        int seq = 2;
+//        boolean pushed = false;
+//        Monitor aNode = null;
+//        Stack stack = new Stack();
+//        for (int i = 0; i < m.getChildCount(m.getRoot()); i++) {
+//            stack.push(m.getChild(m.getRoot(), i));
+//        }
+//
+//        int n = -1;
+//        while (!stack.empty()) {
+//            aNode = (Monitor) stack.pop();
+//            n = m.getThreadDumpIndex(aNode);
+//            if (aNode.isPop()) {
+//                str = str + "</span>\n";
+//            } else if (m.isRecursive(aNode)) {
+//                if (aNode.isDeadlock) {
+//                    if (n >= 0) {
+//                        str = str + "<img src=\"deadlock.gif\"><a  onmouseover=\"highLight" + id + "(this,1," + n + ")\" onmouseout=\"highLight" + id + "(this,0)\"  onclick=\"showMonStack" + id + "(" + n + ")\"> " + this.getTreeEntry(m, aNode) + "</a><br>\n";
+//                    } else {
+//                        str = str + "<img src=\"deadlock.gif\"> " + this.getTreeEntry(m, aNode) + "<br>\n";
+//                    }
+//                } else if (n >= 0) {
+//                    str = str + "<img src=\"leaf.gif\"><a  onmouseover=\"highLight" + id + "(this,1," + n + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showMonStack" + id + "(" + n + ") ; showMonStack" + id + "(" + n + ")\" > " + this.getTreeEntry(m, aNode) + "</a><br>\n";
+//                } else {
+//                    str = str + "<img src=\"leaf.gif\"><a onclick=\"showMonStack" + id + "(" + n + ")\" >" + this.getTreeEntry(m, aNode) + "</a><br>\n";
+//                }
+//            } else {
+//                if (m.getChildCount(aNode) == 0) {
+//                    if (n >= 0) {
+//                        str = str + "<img src=\"leaf.gif\"><a  onmouseover=\"highLight" + id + "(this,1," + n + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showMonStack" + id + "(" + n + ")\" > " + this.getTreeEntry(m, aNode) + "</a><br>\n";
+//                    } else {
+//                        str = str + "<img src=\"leaf.gif\"><a onclick=\"showMonStack" + id + "(" + n + ")\" >" + this.getTreeEntry(m, aNode) + "</a><br>\n";
+//                    }
+//                } else {
+//                    if (aNode.isDeadlock) {
+//                        if (n >= 0) {
+//                            str = str + "<span class=\"parent\" onClick=\"changeTree('branch" + id + "_" + seq + "','folder" + id + "_" + seq + "')\">\n\t<img src=\"deadlock.gif\" id=\"folder" + id + "_" + seq + "\"><a  onmouseover=\"highLight" + id + "(this,1," + n + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showMonStack" + id + "(" + n + ")\" > " + this.getTreeEntry(m, aNode) + "</a><br>\n </span> \n <span class=\"children\" id=\"branch" + id + "_" + seq + "\"> \n";
+//                        } else {
+//                            str = str + "<span class=\"parent\" onClick=\"changeTree('branch" + id + "_" + seq + "','folder" + id + "_" + seq + "') ; showMonStack" + id + "(" + n + ")\" >\n\t<img src=\"deadlock.gif\" id=\"folder" + id + "_" + seq + "\"> " + this.getTreeEntry(m, aNode) + "<br>\n </span> \n <span class=\"children\" id=\"branch" + id + "_" + seq + "\"> \n";
+//                        }
+//                    } else if (n >= 0) {
+//                        str = str + "<span class=\"parent\" onClick=\"changeTree('branch" + id + "_" + seq + "','folder" + id + "_" + seq + "') ; showMonStack" + id + "(" + n + ")\" >\n\t<img src=\"close.gif\" id=\"folder" + id + "_" + seq + "\"><a  onmouseover=\"highLight" + id + "(this,1," + n + ")\" onmouseout=\"highLight" + id + "(this,0)\" >  " + this.getTreeEntry(m, aNode) + "</a><br>\n </span> \n <span class=\"children\" id=\"branch" + id + "_" + seq + "\"> \n";
+//                    } else {
+//                        str = str + "<span class=\"parent\" onClick=\"changeTree('branch" + id + "_" + seq + "','folder" + id + "_" + seq + "') ; showMonStack" + id + "(" + n + ")\" >\n\t<img src=\"close.gif\" id=\"folder" + id + "_" + seq + "\"> " + this.getTreeEntry(m, aNode) + "<br>\n </span> \n <span class=\"children\" id=\"branch" + id + "_" + seq + "\"> \n";
+//                    }
+//
+//                    ++seq;
+//                    aNode.isPop = true;
+//                    stack.push(aNode);
+//                }
+//
+//                if (m.getChildCount(aNode) > 0) {
+//                    for (int i = 0; i < m.getChildCount(aNode); ++i) {
+//                        Monitor cNode = (Monitor) m.getChild(aNode, i);
+//                        if (!cNode.visited) {
+//                            cNode.visited = true;
+//                            stack.push(cNode);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        str = str + "</span></td><td id=\"monStackColumn" + id + "\" valign=\"top\" >Click on entries to display stack traces</td></tr></table>";
+//        return javaScript + str + "</UL>";
+//    }
+
+//    public String generateReport(ThreadInfo ti) {
+//        StringBuffer output = new StringBuffer();
+//        output.append("<UL>");
+//
+//        for (int i = 0; i < ti.threadDumps.size(); ++i) {
+//            output.append("<li><a href=\"#T" + i + "\">Java Thread Dump Individual Analysis : " + ((ThreadDump) ti.threadDumps.get(i)).fileName + "</a><br>");
+//            output.append("<ul><li><a href=\"#TS" + i + "\">Thread Status Analysis</a><br>");
+//            output.append("<li><a href=\"#TM" + i + "\">Thread Method Analysis</a><br>");
+//            output.append("<li><a href=\"#TD" + i + "\">Thread Detail  Analysis</a><br><br></ul>");
+//            output.append("<li><a href=\"#M" + i + "\">Java Monitor Dump Individual Analysis : " + ((ThreadDump) ti.threadDumps.get(i)).fileName + "</a><br><br>");
+//        }
+//
+//        if (ti.threadDumps.size() > 1) {
+//            output.append("<li><a href=\"#C\">Java Thread Dump Comparison Analysis</a>");
+//            output.append("<UL><li><a href=\"#CS\">Thread Comparison Summary</a>");
+//            output.append("<li><a href=\"#CD\">Thread Comparison Detail</a></UL>");
+//            output.append("</UL><br><br>");
+//        } else {
+//            output.append("<li>Java Thread Dump Comparison Analysis : Not available for a single thread dump");
+//            output.append("</UL><br><br>");
+//        }
+//
+//        String temp = null;
+//
+//        for (int i = 0; i < ti.threadDumps.size(); ++i) {
+//            output.append("<H2><a name=\"T" + i + "\">Java Thread Dump Individual Analysis</a></H2>");
+//            output.append("<UL>");
+//            output.append(((ThreadDump) ti.threadDumps.get(i)).warning);
+//            output.append(((ThreadDump) ti.threadDumps.get(i)).summary);
+//            output.append("</UL>");
+//            output.append("<BR>");
+//            output.append(this.generateThreadSummary(i, (ThreadDump) ti.threadDumps.get(i)));
+//            output.append(BTT);
+//            output.append("<BR>");
+//            output.append(this.generateThreadDetail(i, (ThreadDump) ti.threadDumps.get(i)));
+//            output.append(BTT);
+//            output.append("<BR>");
+//            output.append("<H2><a name=\"M" + i + "\">Java Monitor Dump Individual Analysis</a></H2>");
+//            temp = this.generateMonitorDetail(i, (ThreadDump) ti.threadDumps.get(i));
+//            if (temp == null) {
+//                output.append("<BR>Monitor dump is not available in " + ((ThreadDump) ti.threadDumps.get(i)).fileName);
+//            } else {
+//                output.append(temp);
+//            }
+//
+//            output.append("<BR>");
+//            output.append(BTT);
+//        }
+//
+//        if (ti.threadDumps.size() > 1) {
+//            output.append("<H2><a name=\"C\">Java Thread Dump Comparison Analysis</a></H2>");
+//            output.append(this.generateThreadComparison(ti));
+//            output.append(BTT);
+//        }
+//
+//        return output.toString();
+//    }
+
+//    public String generateThreadComparison(ThreadInfo ti) {
+//        if (ti == null) {
+//            return "";
+//        } else if (ti.threadDumps == null) {
+//            return "";
+//        } else if (ti.threadDumps.size() < 2) {
+//            return "";
+//        } else {
+//            String id = "comp";
+//            ThreadDump[] td = new ThreadDump[ti.threadDumps.size()];
+//
+//            for (int i = 0; i < ti.threadDumps.size(); ++i) {
+//                td[i] = (ThreadDump) ti.threadDumps.get(i);
+//            }
+//
+//            CompareTableModel model = new CompareTableModel(td);
+//            String stackArray = "var stacks" + id + " = [";
+//
+//            for (int i = 0; i < model.getRowCount(); ++i) {
+//                for (int j = 1; j < model.getColumnCount(); ++j) {
+//                    if (j == 1) {
+//                        stackArray = stackArray + "[\"" + model.getStack(i, j - 1) + "\"";
+//                    } else {
+//                        stackArray = stackArray + ",\"" + model.getStack(i, j - 1) + "\"";
+//                    }
+//                }
+//
+//                stackArray = stackArray + "],\n";
+//            }
+//
+//            stackArray = stackArray + "];\n";
+//            String highLight = "function highLight" + id + "(objref,state,row,col)\n{\nobjref.style.color = (0 == state) ? '#000000' : '#0000FF';\n showStackTrace(stackscomp[row][col]); \n  if(state==0) hideStackTrace();  }\n";
+//            String javaScript = "\n<script type=\"text/javascript\">\n" + stackArray + "\nfunction showStack" + id + "(rowNumber,columnNumber)   { \ndocument.getElementById(\"stackColumn" + id + "\").innerHTML=stacks" + id + "[rowNumber][columnNumber];\n }\n" + highLight + " </script>\n";
+//            String str = "<UL><LI><a name=\"CS\">Thread Comparison Summary</a><BR><BR>" + this.generateThreadComparisonSummary(td) + this.hangSummary(model) + "</UL><BR><BR>" + "<LI><a name=\"CD\">Thread Comparison Detail</a><BR><BR><table border=\"1\"><col width=20%></col><col width=20%></col><col width=20%></col><col width=40%></col><caption align=\"bottom\">Thread Comparison Detail</caption><tr><th>Thread Name</th>";
+//
+//            for (int i = 0; i < td.length; ++i) {
+//                str = str + "<th>" + td[i].fileName + "</th>";
+//            }
+//
+//            str = str + "<th>Stack Trace</th></tr>";
+//
+//            for (int i = 0; i < model.getRowCount(); ++i) {
+//                str = str + "<tr><td>" + model.getValueAt(i, 0) + "</font></a></td>";
+//
+//                for (int j = 0; j < td.length; ++j) {
+//                    //tips-删除了颜色函数-采集数据不需要
+////                    str = str + "<td " + this.getStateBGColor(model, i, j + 1) + "><a  style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + "," + j + ")\" onmouseout=\"highLight" + id + "(this,0," + i + "," + j + ")\" onclick=\"showStack" + id + "(" + i + "," + j + ")\"><font " + this.getStateColor(model, i, j + 1) + ">" + (model.getValueAt(i, j + 1) == null ? "NO THREAD" : model.getValueAt(i, j + 1)) + "</font></a></td>";
+//                    str = str + "<td " + "><a  style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + "," + j + ")\" onmouseout=\"highLight" + id + "(this,0," + i + "," + j + ")\" onclick=\"showStack" + id + "(" + i + "," + j + ")\"><font " + ">" + (model.getValueAt(i, j + 1) == null ? "NO THREAD" : model.getValueAt(i, j + 1)) + "</font></a></td>";
+//                }
+//
+//                if (i == 0) {
+//                    str = str + "<td\t id=\"stackColumn" + id + "\" rowspan=\"" + model.getRowCount() + "\" valign=\"top\" >Click on threads to display stack traces</td></tr>";
+//                } else {
+//                    str = str + "</tr>";
+//                }
+//            }
+//
+//            return javaScript + str + "</table></UL>";
+//        }
+//    }
+
+//    public String generateThreadComparisonSummary(ThreadDump[] td) {
+//        String compareSummary = "<UL>";
+//        if (td[0].pid != -1L) {
+//            if (!this.isSamePID(td)) {
+//                compareSummary = compareSummary + "<LI>WARNING!! Thread dumps are taken from different processes.Further analysis is not meaningful<BR><BR>";
+//            } else {
+//                compareSummary = compareSummary + "<LI>Process ID : " + td[0].pid + "<BR><BR>";
+//            }
+//        }
+//
+//        compareSummary = compareSummary + "<LI>List of files compared<UL><BR>";
+//
+//        int i;
+//        for (i = 0; i < td.length; ++i) {
+//            compareSummary = compareSummary + "<LI>" + td[i].fileName + "<BR>";
+//        }
+//
+//        compareSummary = compareSummary + "</UL><BR>";
+//        long endTime;
+//        long startTime = endTime = td[0].timeStamp;
+//        if (startTime != -1L) {
+//            long endGC;
+//            long startGC = endGC = td[0].gc;
+//            long endAF;
+//            long startAF = endAF = td[0].af;
+//
+//            for (i = 0; i < td.length; ++i) {
+//                if (startTime > td[i].timeStamp) {
+//                    startTime = td[i].timeStamp;
+//                    startGC = td[i].gc;
+//                    startAF = td[i].af;
+//                }
+//
+//                if (endTime < td[i].timeStamp) {
+//                    endTime = td[i].timeStamp;
+//                    endGC = td[i].gc;
+//                    endAF = td[i].af;
+//                }
+//            }
+//
+//            float min = (float) (endTime - startTime) / 60000.0F;
+//            compareSummary = compareSummary + "<LI>First Dump : " + new Date(startTime) + "<BR><BR><LI>Last Dump : " + new Date(endTime) + "<BR><BR>";
+//            if (startGC != -1L) {
+//                if (min != 0.0F) {
+//                    if (td[0].isJ9) {
+//                        compareSummary = compareSummary + "<LI>Global Collections per Minute : " + (float) (endGC - startGC) / min + "<BR><BR><LI>Scavenge Collections per Minute : " + (float) (endAF - startAF) / min + "<BR><BR>";
+//                    } else {
+//                        compareSummary = compareSummary + "<LI>Garbage Collections per Minute : " + (float) (endGC - startGC) / min + "<BR><BR><LI>Allocation Failures per Minute : " + (float) (endAF - startAF) / min + "<BR><BR>";
+//                    }
+//                }
+//
+//                long t = (endTime - startTime) / 1000L;
+//                long s = t % 60L;
+//                long m = t / 60L % 60L;
+//                long h = t / 60L / 60L % 24L;
+//                long d = t / 60L / 60L / 24L;
+//                if (t != 0L && s + m + h + d != 0L) {
+//                    compareSummary = compareSummary + "<LI>Elapsed Time : " + (d == 0L ? "" : d + " Day(s) ") + (h == 0L ? "" : h + " Hour(s) ") + (m == 0L ? "" : m + " Minute(s) ") + (s == 0L ? "" : s + " Second(s)" + "<BR><BR>");
+//                }
+//            }
+//        }
+//
+//        return compareSummary;
+//    }
+
+//    public String generateThreadDetail(int sn, ThreadDump td) {
+//        String id = "_" + sn;
+//        String stackArray = "var stacks" + id + " = new Array()\n";
+//
+//        for (int i = 0; (long) i < td.getTotalThread(); ++i) {
+//            stackArray = stackArray + "stacks" + id + "[" + i + "]=\"" + td.getStackTrace(i) + "\"\n";
+//        }
+//
+//        String highLight = "function highLight" + id + "(objref,state,row)\n{\nobjref.style.color = (0 == state) ? '#000000' : '#0000FF'; \n showStackTrace(stacks" + id + "[row]) \n if(state==0) hideStackTrace() \n }\n";
+//        String javaScript = "\n<script type=\"text/javascript\">\n" + stackArray + "\nfunction showStack" + id + "(rowNumber)   { \ndocument.getElementById(\"stackColumn" + id + "\").innerHTML=stacks" + id + "[rowNumber];\n }\n" + highLight + " </script>\n";
+//        String str = "<UL><LI><a name=\"TD" + sn + "\">Thread Detail : " + td.fileName + "</a><BR><BR><table border=\"1\"><col width=20%></col><col width=20%></col><col width=30%></col><col width=30%></col><caption align=\"bottom\">" + "Thread Detail : " + td.fileName + "</caption><tr><th>Name</th><th>State</th><th>Method</th><th>Stack Trace</th></tr>";
+//        //tips-去除颜色函数
+////        str = str + "<tr><td><a style=\"cursor:hand\" onmouseover=\"highLight" + id + "(this,1,0)\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(0)\">" + td.getName(0) + "</a></td><td " + this.getStateColor(td, 0) + "<a style=\"cursor:hand\" onmouseover=\"highLight" + id + "(this,1,0)\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(0)\">" + td.getState(0) + "</a></td><td><a style=\"cursor:hand\" onmouseover=\"highLight" + id + "(this,1,0)\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(0)\">" + td.getCurrentMethod(0) + "</a></td><td\t id=\"stackColumn" + id + "\" rowspan=\"" + td.getTotalThread() + "\" valign=\"top\" >Click on threads to display stack traces</td></tr>";
+//        str = str + "<tr><td><a style=\"cursor:hand\" onmouseover=\"highLight" + id + "(this,1,0)\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(0)\">" + td.getName(0) + "</a></td><td " + "<a style=\"cursor:hand\" onmouseover=\"highLight" + id + "(this,1,0)\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(0)\">" + td.getState(0) + "</a></td><td><a style=\"cursor:hand\" onmouseover=\"highLight" + id + "(this,1,0)\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(0)\">" + td.getCurrentMethod(0) + "</a></td><td\t id=\"stackColumn" + id + "\" rowspan=\"" + td.getTotalThread() + "\" valign=\"top\" >Click on threads to display stack traces</td></tr>";
+//
+//        for (int i = 1; (long) i < td.getTotalThread(); ++i) {
+//            //tips-去除颜色函数
+////            str = str + "<tr><td><a style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(" + i + ")\">" + td.getName(i) + "</a></td><td " + this.getStateColor(td, i) + " ><a  style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(" + i + ")\">" + td.getState(i) + "</a></td><td><a style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(" + i + ")\">" + td.getCurrentMethod(i) + "</a></td></tr>";
+//            str = str + "<tr><td><a style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(" + i + ")\">" + td.getName(i) + "</a></td><td " + " ><a  style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(" + i + ")\">" + td.getState(i) + "</a></td><td><a style=\"cursor:hand\"  onmouseover=\"highLight" + id + "(this,1," + i + ")\" onmouseout=\"highLight" + id + "(this,0)\" onclick=\"showStack" + id + "(" + i + ")\">" + td.getCurrentMethod(i) + "</a></td></tr>";
+//        }
+//
+//        return javaScript + str + "</table></UL>";
+//    }
+
+//    public String generateThreadSummary(int sn, ThreadDump td) {
+//        if (td != null) {
+//            long total = td.getTotalThread();
+//            long runnable = td.getRunnable();
+//            long condition = td.getWCondition();
+//            long monitor = td.getWMonitor();
+//            long suspended = td.getSuspended();
+//            long wait = td.getOWait();
+//            long blocked = td.getBlocked();
+//            long parked = td.getParked();
+//            //tips-去除颜色函数
+////            String summary = "<UL><LI><a name=\"TS" + sn + "\">Thread Status Analysis</a><BR><BR><table border=\"1\"><tr><th>Status</th><th>Number of Threads : " + total + "</th><th>Percentage</th></tr><tr><td bgcolor=\"#" + this.getHTMLColor(this.cfg == null ? Analyzer.runnable : Analyzer.runnable) + "\">Runnable</td><td>" + runnable + "</td><td>" + Math.round((float) runnable * 100.0F / (float) total) + " (%)</td></tr><tr><td bgcolor=\"#" + this.getHTMLColor(this.cfg == null ? Analyzer.condition : Analyzer.condition) + "\">Waiting on condition</td><td>" + condition + "</td><td>" + Math.round((float) condition * 100.0F / (float) total) + " (%)</td></tr><tr><td bgcolor=\"#" + this.getHTMLColor(this.cfg == null ? Analyzer.monitor : Analyzer.monitor) + "\">Waiting on monitor</td><td>" + monitor + "</td><td>" + Math.round((float) monitor * 100.0F / (float) total) + " (%)</td></tr><tr><td bgcolor=\"#" + this.getHTMLColor(this.cfg == null ? Analyzer.suspended : Analyzer.suspended) + "\">Suspended</td><td>" + suspended + "</td><td>" + Math.round((float) suspended * 100.0F / (float) total) + " (%)</td></tr><tr><td bgcolor=\"#" + this.getHTMLColor(this.cfg == null ? Analyzer.object : Analyzer.object) + "\">Object.wait()</td><td>" + wait + "</td><td>" + Math.round((float) wait * 100.0F / (float) total) + " (%)</td></tr><tr><td bgcolor=\"#" + this.getHTMLColor(this.cfg == null ? Analyzer.blocked : Analyzer.blocked) + "\">Blocked</td><td>" + blocked + "</td><td>" + Math.round((float) blocked * 100.0F / (float) total) + " (%)</td></tr><tr><td bgcolor=\"#" + this.getHTMLColor(this.cfg == null ? Analyzer.park : Analyzer.park) + "\">Parked</td><td>" + parked + "</td><td>" + Math.round((float) parked * 100.0F / (float) total) + " (%)</td></tr></table></UL>";
+//            String summary = "<UL><LI><a name=\"TS" + sn + "\">Thread Status Analysis</a><BR><BR><table border=\"1\"><tr><th>Status</th><th>Number of Threads : " + total + "</th><th>Percentage</th></tr><tr><td bgcolor=\"#" + "\">Runnable</td><td>" + runnable + "</td><td>" + Math.round((float) runnable * 100.0F / (float) total) + " (%)</td></tr><tr><td " + ">Waiting on condition</td><td>" + condition + "</td><td>" + Math.round((float) condition * 100.0F / (float) total) + " (%)</td></tr><tr><td " + ">Waiting on monitor</td><td>" + monitor + "</td><td>" + Math.round((float) monitor * 100.0F / (float) total) + " (%)</td></tr><tr><td " + ">Suspended</td><td>" + suspended + "</td><td>" + Math.round((float) suspended * 100.0F / (float) total) + " (%)</td></tr><tr><td " + ">Object.wait()</td><td>" + wait + "</td><td>" + Math.round((float) wait * 100.0F / (float) total) + " (%)</td></tr><tr><td " + ">Blocked</td><td>" + blocked + "</td><td>" + Math.round((float) blocked * 100.0F / (float) total) + " (%)</td></tr><tr><td" + ">Parked</td><td>" + parked + "</td><td>" + Math.round((float) parked * 100.0F / (float) total) + " (%)</td></tr></table></UL>";
+//            return summary + "<br>" + td.getMethodSummary(sn);
+//        } else {
+//            return "";
+//        }
+//    }
+
+//    public String getAddress(String str) {
+//        if (str != null && str.length() != 0) {
+//            int open = str.indexOf("(");
+//            int close = str.indexOf(")");
+//            if (open != -1 && close != -1) {
+//                long value = Long.decode(str.substring(open + 1, close));
+//                System.out.println("value:" + value);
+//                return str.substring(open + 1, close);
+//            } else {
+//                return null;
+//            }
+//        } else {
+//            return null;
+//        }
+//    }
+//
+//    long getCompleted(int idx) {
+//        if (this.gi.completed[idx] != 0L) {
+//            return this.gi.completed[idx];
+//        } else if (this.gi.gccompleted[idx] == 0L) {
+//            return 0L;
+//        } else {
+//            for (int i = idx; i < this.gi.free.length; ++i) {
+//                if (this.gi.completed[i] != 0L) {
+//                    return this.gi.completed[i];
+//                }
+//            }
+//
+//            return 0L;
+//        }
+//    }
+//
+//    public int getCurrent() {
+//        return this.current;
+//    }
+//
+//    public int getLengthOfTask() {
+//        return this.lengthOfTask;
+//    }
+//
+//    public String getMessage() {
+//        return this.statMessage;
+//    }
+//
+//    public String getName(String str) {
+//        if (str != null && str.length() != 0) {
+//            int open = str.indexOf("(");
+//            return open == -1 ? null : str.substring(0, open);
+//        } else {
+//            return null;
+//        }
+//    }
+//
+//    public int getNumberOfChar(String str, char c) {
+//        int count = 0;
+//        for (int newIndex = 0; (newIndex = str.indexOf(c)) >= 0; ) {
+//            count++;
+//            if (newIndex >= str.length())
+//                break;
+//            str = str.substring(newIndex + 1);
+//        }
+//
+//        return count;
+//    }
+//
+//    public int getOverall() {
+//        return this.overall;
+//    }
 
     private long getPid(String str) {
         long pid = -1L;
@@ -846,260 +844,260 @@ public class FileTask {
         return -1L;
     }
 
-    long getRequested(int idx) {
-        if (this.gi.af[idx] != 0L) {
-            return this.gi.af[idx];
-        } else {
-            for (int i = idx; i >= 0; --i) {
-                if (this.gi.af[i] != 0L) {
-                    return this.gi.af[i];
-                }
-            }
+//    long getRequested(int idx) {
+//        if (this.gi.af[idx] != 0L) {
+//            return this.gi.af[idx];
+//        } else {
+//            for (int i = idx; i >= 0; --i) {
+//                if (this.gi.af[i] != 0L) {
+//                    return this.gi.af[i];
+//                }
+//            }
+//
+//            return 0L;
+//        }
+//    }
 
-            return 0L;
-        }
-    }
+//    long getSince(int idx) {
+//        if (this.gi.since[idx] != 0L) {
+//            return this.gi.since[idx];
+//        } else {
+//            for (int i = idx; i >= 0; --i) {
+//                if (this.gi.since[i] != 0L && this.gi.af[i] != 0L) {
+//                    return this.gi.since[i];
+//                }
+//            }
+//
+//            return 0L;
+//        }
+//    }
 
-    long getSince(int idx) {
-        if (this.gi.since[idx] != 0L) {
-            return this.gi.since[idx];
-        } else {
-            for (int i = idx; i >= 0; --i) {
-                if (this.gi.since[i] != 0L && this.gi.af[i] != 0L) {
-                    return this.gi.since[i];
-                }
-            }
+//    public String getTreeEntry(MonitorModel model, Object value) {
+//        int id = ((Monitor) value).owner;
+//        if (id == -1)
+//            return (new StringBuilder("[TotalSize/Size] ThreadName (ObjectName) ")).append(nf.format(model.rootChildren.length)).toString();
+//        if (model.child[id] != null)
+//            if (model.objectName[id] == -1)
+//                return (new StringBuilder("[")).append(nf.format(model.total[id])).append("/").append(nf.format(model.size[id])).append("] ").append(model.getThreadName(id)).toString();
+//            else
+//                return (new StringBuilder("[")).append(nf.format(model.total[id])).append("/").append(nf.format(model.size[id])).append("] ").append(model.getThreadName(id)).append(" (").append(model.objectArray[model.objectName[id]]).append(")").toString();
+//        if (model.objectName[id] >= 0)
+//            return (new StringBuilder(String.valueOf(model.getThreadName(id)))).append(" (").append(model.objectArray[model.objectName[id]]).append(")").toString();
+//        else
+//            return model.getThreadName(id);
+//    }
 
-            return 0L;
-        }
-    }
-
-    public String getTreeEntry(MonitorModel model, Object value) {
-        int id = ((Monitor) value).owner;
-        if (id == -1)
-            return (new StringBuilder("[TotalSize/Size] ThreadName (ObjectName) ")).append(nf.format(model.rootChildren.length)).toString();
-        if (model.child[id] != null)
-            if (model.objectName[id] == -1)
-                return (new StringBuilder("[")).append(nf.format(model.total[id])).append("/").append(nf.format(model.size[id])).append("] ").append(model.getThreadName(id)).toString();
-            else
-                return (new StringBuilder("[")).append(nf.format(model.total[id])).append("/").append(nf.format(model.size[id])).append("] ").append(model.getThreadName(id)).append(" (").append(model.objectArray[model.objectName[id]]).append(")").toString();
-        if (model.objectName[id] >= 0)
-            return (new StringBuilder(String.valueOf(model.getThreadName(id)))).append(" (").append(model.objectArray[model.objectName[id]]).append(")").toString();
-        else
-            return model.getThreadName(id);
-    }
-
-    String getTrend(int x, int y) {
-        String ts = "between " + formatter.format(new Date(this.gi.timestamp[x])) + " and " + formatter.format(new Date(this.gi.timestamp[y]));
-        float alpha = 0.9F;
-        float st_1 = (float) (this.gi.total[x] - this.gi.free[x]);
-        float st1 = 0.0F;
-        float st2 = 0.0F;
-        float st2_1 = (float) (this.gi.total[x] - this.gi.free[x]);
-        float mape = 0.0F;
-        long maxUsed = 0L;
-
-        for (int i = x + 1; i <= y; ++i) {
-            if (maxUsed < this.gi.total[i] - this.gi.free[i]) {
-                maxUsed = this.gi.total[i] - this.gi.free[i];
-            }
-
-            st1 = alpha * (float) (this.gi.total[i] - this.gi.free[i]) + (1.0F - alpha) * st_1;
-            st2 = alpha * st1 + (1.0F - alpha) * st2_1;
-            st_1 = st1;
-            st2_1 = st2;
-            mape += Math.abs((float) (this.gi.total[i] - this.gi.free[i]) - st2) / (float) (this.gi.total[i] - this.gi.free[i]);
-        }
-
-        float doub = 2.0F * st_1 - st2_1 + alpha / (1.0F - alpha) * (st_1 - st2_1);
-        if ((double) (mape / (float) (y - x)) > 0.5D) {
-            return "Trend model not reliable (percentage error is larger than 50%) " + ts;
-        } else {
-            float number = doub;
-            long max = 0L;
-
-            for (int i = 0; i < y - x + 1; ++i) {
-                st1 = alpha * number + (1.0F - alpha) * st_1;
-                st2 = alpha * st1 + (1.0F - alpha) * st2_1;
-                st_1 = st1;
-                st2_1 = st2;
-                number = 2.0F * st1 - st2 + alpha / (1.0F - alpha) * (st1 - st2);
-                if (number < 1.0F) {
-                    return "Trend ratio(%): 0 (Recommended max heap size of " + numberFormatter.format((double) (1.3F * (float) maxUsed)) + " or greater) with percentage error(%): " + 100.0F * mape / (float) (y - x) + " " + ts;
-                }
-
-                if (number > 4.0E9F) {
-                    return "Trend ratio(%): over 100 with percentage error(%): " + 100.0F * mape / (float) (y - x) + " " + ts;
-                }
-
-                if (number > (float) max) {
-                    max = (long) number;
-                }
-            }
-
-            if (max < this.gi.total[y] - this.gi.free[y]) {
-                return "Trend ratio(%): " + 100.0F * (float) (max - (this.gi.total[y] - this.gi.free[y])) / (float) (this.gi.total[y] - this.gi.free[y]) + " (Recommended max heap size of " + numberFormatter.format((double) (1.3F * (float) maxUsed)) + " or greater) with percentage error(%): " + 100.0F * mape / (float) (y - x) + " " + ts;
-            } else {
-                return "Trend ratio(%): " + 100.0F * (float) (max - (this.gi.total[y] - this.gi.free[y])) / (float) (this.gi.total[y] - this.gi.free[y]) + " with percentage error(%): " + 100.0F * mape / (float) (y - x) + " " + ts;
-            }
-        }
-    }
-
-    public long getXmx(String str) {
-        if (str == null) {
-            return -1L;
-        } else {
-            int g = str.indexOf(103);
-            if (g < 0) {
-                g = str.indexOf(71);
-            }
-
-            long output = 0L;
-            String num = null;
-            if (g < 0) {
-                int m = str.indexOf(109);
-                if (m < 0) {
-                    m = str.indexOf(77);
-                }
-
-                if (m < 0) {
-                    int k = str.indexOf(107);
-                    if (k < 0) {
-                        k = str.indexOf(75);
-                    }
-
-                    if (k < 0) {
-                        output = Long.parseLong(str);
-                        return output;
-                    } else {
-                        num = str.substring(0, k);
-                        if (num == null) {
-                            return -1L;
-                        } else {
-                            output = Long.parseLong(num);
-                            return output * 1024L;
-                        }
-                    }
-                } else {
-                    num = str.substring(0, m);
-                    if (num == null) {
-                        return -1L;
-                    } else {
-                        output = Long.parseLong(num);
-                        return output * 1024L * 1024L;
-                    }
-                }
-            } else {
-                num = str.substring(0, g);
-                if (num == null) {
-                    return -1L;
-                } else {
-                    output = Long.parseLong(num);
-                    return output * 1024L * 1024L * 1024L;
-                }
-            }
-        }
-    }
+//    String getTrend(int x, int y) {
+//        String ts = "between " + formatter.format(new Date(this.gi.timestamp[x])) + " and " + formatter.format(new Date(this.gi.timestamp[y]));
+//        float alpha = 0.9F;
+//        float st_1 = (float) (this.gi.total[x] - this.gi.free[x]);
+//        float st1 = 0.0F;
+//        float st2 = 0.0F;
+//        float st2_1 = (float) (this.gi.total[x] - this.gi.free[x]);
+//        float mape = 0.0F;
+//        long maxUsed = 0L;
+//
+//        for (int i = x + 1; i <= y; ++i) {
+//            if (maxUsed < this.gi.total[i] - this.gi.free[i]) {
+//                maxUsed = this.gi.total[i] - this.gi.free[i];
+//            }
+//
+//            st1 = alpha * (float) (this.gi.total[i] - this.gi.free[i]) + (1.0F - alpha) * st_1;
+//            st2 = alpha * st1 + (1.0F - alpha) * st2_1;
+//            st_1 = st1;
+//            st2_1 = st2;
+//            mape += Math.abs((float) (this.gi.total[i] - this.gi.free[i]) - st2) / (float) (this.gi.total[i] - this.gi.free[i]);
+//        }
+//
+//        float doub = 2.0F * st_1 - st2_1 + alpha / (1.0F - alpha) * (st_1 - st2_1);
+//        if ((double) (mape / (float) (y - x)) > 0.5D) {
+//            return "Trend model not reliable (percentage error is larger than 50%) " + ts;
+//        } else {
+//            float number = doub;
+//            long max = 0L;
+//
+//            for (int i = 0; i < y - x + 1; ++i) {
+//                st1 = alpha * number + (1.0F - alpha) * st_1;
+//                st2 = alpha * st1 + (1.0F - alpha) * st2_1;
+//                st_1 = st1;
+//                st2_1 = st2;
+//                number = 2.0F * st1 - st2 + alpha / (1.0F - alpha) * (st1 - st2);
+//                if (number < 1.0F) {
+//                    return "Trend ratio(%): 0 (Recommended max heap size of " + numberFormatter.format((double) (1.3F * (float) maxUsed)) + " or greater) with percentage error(%): " + 100.0F * mape / (float) (y - x) + " " + ts;
+//                }
+//
+//                if (number > 4.0E9F) {
+//                    return "Trend ratio(%): over 100 with percentage error(%): " + 100.0F * mape / (float) (y - x) + " " + ts;
+//                }
+//
+//                if (number > (float) max) {
+//                    max = (long) number;
+//                }
+//            }
+//
+//            if (max < this.gi.total[y] - this.gi.free[y]) {
+//                return "Trend ratio(%): " + 100.0F * (float) (max - (this.gi.total[y] - this.gi.free[y])) / (float) (this.gi.total[y] - this.gi.free[y]) + " (Recommended max heap size of " + numberFormatter.format((double) (1.3F * (float) maxUsed)) + " or greater) with percentage error(%): " + 100.0F * mape / (float) (y - x) + " " + ts;
+//            } else {
+//                return "Trend ratio(%): " + 100.0F * (float) (max - (this.gi.total[y] - this.gi.free[y])) / (float) (this.gi.total[y] - this.gi.free[y]) + " with percentage error(%): " + 100.0F * mape / (float) (y - x) + " " + ts;
+//            }
+//        }
+//    }
+//
+//    public long getXmx(String str) {
+//        if (str == null) {
+//            return -1L;
+//        } else {
+//            int g = str.indexOf(103);
+//            if (g < 0) {
+//                g = str.indexOf(71);
+//            }
+//
+//            long output = 0L;
+//            String num = null;
+//            if (g < 0) {
+//                int m = str.indexOf(109);
+//                if (m < 0) {
+//                    m = str.indexOf(77);
+//                }
+//
+//                if (m < 0) {
+//                    int k = str.indexOf(107);
+//                    if (k < 0) {
+//                        k = str.indexOf(75);
+//                    }
+//
+//                    if (k < 0) {
+//                        output = Long.parseLong(str);
+//                        return output;
+//                    } else {
+//                        num = str.substring(0, k);
+//                        if (num == null) {
+//                            return -1L;
+//                        } else {
+//                            output = Long.parseLong(num);
+//                            return output * 1024L;
+//                        }
+//                    }
+//                } else {
+//                    num = str.substring(0, m);
+//                    if (num == null) {
+//                        return -1L;
+//                    } else {
+//                        output = Long.parseLong(num);
+//                        return output * 1024L * 1024L;
+//                    }
+//                }
+//            } else {
+//                num = str.substring(0, g);
+//                if (num == null) {
+//                    return -1L;
+//                } else {
+//                    output = Long.parseLong(num);
+//                    return output * 1024L * 1024L * 1024L;
+//                }
+//            }
+//        }
+//    }
 
     public void go() {
         numberFormatter.setMaximumFractionDigits(2);
-        this.processThreadDump(this.file, true);
+        this.processThreadDump(this.file);
     }
 
-    private String hangSummary(CompareTableModel cTableModel) {
-        String id = "comp";
-        String summary = "";
-        List threadNameList = Collections.synchronizedList(new ArrayList());
-        if (cTableModel != null && cTableModel.hi != null && cTableModel.hi.length != 1) {
-            long numberOfHung = 0L;
-            ThreadDump[] hi = cTableModel.hi;
-            String[] threads = new String[cTableModel.tidHash.size()];
-            boolean[] isMoving = new boolean[cTableModel.tidHash.size()];
+//    private String hangSummary(CompareTableModel cTableModel) {
+//        String id = "comp";
+//        String summary = "";
+//        List threadNameList = Collections.synchronizedList(new ArrayList());
+//        if (cTableModel != null && cTableModel.hi != null && cTableModel.hi.length != 1) {
+//            long numberOfHung = 0L;
+//            ThreadDump[] hi = cTableModel.hi;
+//            String[] threads = new String[cTableModel.tidHash.size()];
+//            boolean[] isMoving = new boolean[cTableModel.tidHash.size()];
+//
+//            for (int i = 0; i < cTableModel.tidHash.size(); ++i) {
+//                Long tid = (Long) cTableModel.tidHash.get(new Integer(i));
+//                Integer idx = (Integer) hi[0].threadHash.get(tid);
+//                if (idx == null) {
+//                    isMoving[i] = true;
+//                } else {
+//                    threads[i] = hi[0].javaStack[idx];
+//                    if (threads[i] == null) {
+//                        isMoving[i] = true;
+//                    } else {
+//                        int j = 1;
+//
+//                        while (j < hi.length) {
+//                            idx = (Integer) hi[j].threadHash.get(tid);
+//                            if (idx != null) {
+//                                if (hi[j].javaStack[idx] != null && threads[i].compareTo(hi[j].javaStack[idx]) == 0) {
+//                                    ++j;
+//                                    continue;
+//                                }
+//
+//                                isMoving[i] = true;
+//                                break;
+//                            }
+//
+//                            isMoving[i] = true;
+//                            break;
+//                        }
+//
+//                        idx = (Integer) hi[0].threadHash.get(tid);
+//                        if (!isMoving[i] && idx != null && hi[0].macro[idx] != 1) {
+//                            threadNameList.add(hi[0].name[idx]);
+//                        }
+//                    }
+//                }
+//            }
+//
+//            if (threadNameList.size() != 0) {
+//                String[] nameString = (String[]) threadNameList.toArray(new String[threadNameList.size()]);
+//                Arrays.sort(nameString);
+//                String highLight = "function highLightHang" + id + "(objref,state,row,col)\n{ \n objref.style.color = (0 == state) ? '#000000' : '#0000FF';\n showStackTrace(stackscomp[row][col]); \n  if(state==0) hideStackTrace();  }\n";
+//                String javaScript = "\n<script type=\"text/javascript\">\n function showStackHang" + id + "(rowNumber,columnNumber)   { \ndocument.getElementById(\"stackColumnHang" + id + "\").innerHTML=stacks" + id + "[rowNumber][columnNumber];\n }\n" + highLight + " </script>\n";
+//                summary = "<LI>Number of hang suspects : " + nameString.length + "<BR><BR><LI>List of hang suspects:<BR><BR><UL><table border=\"1\"><col width=20%></col><col width=20%></col><col width=20%></col><col width=40%></col><caption align=\"bottom\">Hang suspects</caption><tr><th>Thread Name</th>";
+//                summary = summary + "<th>Method</th><th>Stack Trace</th></tr>";
+//
+//                for (int i = 0; i < nameString.length; ++i) {
+//                    for (int j = 0; j < cTableModel.getRowCount(); ++j) {
+//                        if (nameString[i].compareTo((String) cTableModel.getValueAt(j, 0)) == 0) {
+//                            summary = summary + "<tr><td>" + cTableModel.getValueAt(j, 0) + "</font></a></td>";
+//                            //tips-去除颜色函数
+//                            summary = summary + "<td " + "><a  style=\"cursor:hand\"  onmouseover=\"highLightHang" + id + "(this,1," + j + ",0)\" onmouseout=\"highLightHang" + id + "(this,0," + j + ",0)\" onclick=\"showStackHang" + id + "(" + j + ",0)\"><font " + ">" + (cTableModel.getValueAt(j, 1) == null ? "NO THREAD" : cTableModel.getValueAt(j, 1)) + "</font></a></td>";
+////                            summary = summary + "<td " + this.getStateBGColor(cTableModel, j, 1) + "><a  style=\"cursor:hand\"  onmouseover=\"highLightHang" + id + "(this,1," + j + ",0)\" onmouseout=\"highLightHang" + id + "(this,0," + j + ",0)\" onclick=\"showStackHang" + id + "(" + j + ",0)\"><font " + this.getStateColor(cTableModel, j, 1) + ">" + (cTableModel.getValueAt(j, 1) == null ? "NO THREAD" : cTableModel.getValueAt(j, 1)) + "</font></a></td>";
+//                            break;
+//                        }
+//                    }
+//
+//                    if (i == 0) {
+//                        summary = summary + "<td id=\"stackColumnHang" + id + "\" rowspan=\"" + cTableModel.getRowCount() + "\" valign=\"top\" >Click on threads to display stack traces</td></tr>";
+//                    } else {
+//                        summary = summary + "</tr>";
+//                    }
+//                }
+//
+//                summary = javaScript + summary + "</table></UL>";
+//            } else {
+//                summary = "<li>No hang suspects found.</br>";
+//            }
+//        }
+//
+//        return summary;
+//    }
 
-            for (int i = 0; i < cTableModel.tidHash.size(); ++i) {
-                Long tid = (Long) cTableModel.tidHash.get(new Integer(i));
-                Integer idx = (Integer) hi[0].threadHash.get(tid);
-                if (idx == null) {
-                    isMoving[i] = true;
-                } else {
-                    threads[i] = hi[0].javaStack[idx];
-                    if (threads[i] == null) {
-                        isMoving[i] = true;
-                    } else {
-                        int j = 1;
-
-                        while (j < hi.length) {
-                            idx = (Integer) hi[j].threadHash.get(tid);
-                            if (idx != null) {
-                                if (hi[j].javaStack[idx] != null && threads[i].compareTo(hi[j].javaStack[idx]) == 0) {
-                                    ++j;
-                                    continue;
-                                }
-
-                                isMoving[i] = true;
-                                break;
-                            }
-
-                            isMoving[i] = true;
-                            break;
-                        }
-
-                        idx = (Integer) hi[0].threadHash.get(tid);
-                        if (!isMoving[i] && idx != null && hi[0].macro[idx] != 1) {
-                            threadNameList.add(hi[0].name[idx]);
-                        }
-                    }
-                }
-            }
-
-            if (threadNameList.size() != 0) {
-                String[] nameString = (String[]) threadNameList.toArray(new String[threadNameList.size()]);
-                Arrays.sort(nameString);
-                String highLight = "function highLightHang" + id + "(objref,state,row,col)\n{ \n objref.style.color = (0 == state) ? '#000000' : '#0000FF';\n showStackTrace(stackscomp[row][col]); \n  if(state==0) hideStackTrace();  }\n";
-                String javaScript = "\n<script type=\"text/javascript\">\n function showStackHang" + id + "(rowNumber,columnNumber)   { \ndocument.getElementById(\"stackColumnHang" + id + "\").innerHTML=stacks" + id + "[rowNumber][columnNumber];\n }\n" + highLight + " </script>\n";
-                summary = "<LI>Number of hang suspects : " + nameString.length + "<BR><BR><LI>List of hang suspects:<BR><BR><UL><table border=\"1\"><col width=20%></col><col width=20%></col><col width=20%></col><col width=40%></col><caption align=\"bottom\">Hang suspects</caption><tr><th>Thread Name</th>";
-                summary = summary + "<th>Method</th><th>Stack Trace</th></tr>";
-
-                for (int i = 0; i < nameString.length; ++i) {
-                    for (int j = 0; j < cTableModel.getRowCount(); ++j) {
-                        if (nameString[i].compareTo((String) cTableModel.getValueAt(j, 0)) == 0) {
-                            summary = summary + "<tr><td>" + cTableModel.getValueAt(j, 0) + "</font></a></td>";
-                            //tips-去除颜色函数
-                            summary = summary + "<td " + "><a  style=\"cursor:hand\"  onmouseover=\"highLightHang" + id + "(this,1," + j + ",0)\" onmouseout=\"highLightHang" + id + "(this,0," + j + ",0)\" onclick=\"showStackHang" + id + "(" + j + ",0)\"><font " + ">" + (cTableModel.getValueAt(j, 1) == null ? "NO THREAD" : cTableModel.getValueAt(j, 1)) + "</font></a></td>";
-//                            summary = summary + "<td " + this.getStateBGColor(cTableModel, j, 1) + "><a  style=\"cursor:hand\"  onmouseover=\"highLightHang" + id + "(this,1," + j + ",0)\" onmouseout=\"highLightHang" + id + "(this,0," + j + ",0)\" onclick=\"showStackHang" + id + "(" + j + ",0)\"><font " + this.getStateColor(cTableModel, j, 1) + ">" + (cTableModel.getValueAt(j, 1) == null ? "NO THREAD" : cTableModel.getValueAt(j, 1)) + "</font></a></td>";
-                            break;
-                        }
-                    }
-
-                    if (i == 0) {
-                        summary = summary + "<td id=\"stackColumnHang" + id + "\" rowspan=\"" + cTableModel.getRowCount() + "\" valign=\"top\" >Click on threads to display stack traces</td></tr>";
-                    } else {
-                        summary = summary + "</tr>";
-                    }
-                }
-
-                summary = javaScript + summary + "</table></UL>";
-            } else {
-                summary = "<li>No hang suspects found.</br>";
-            }
-        }
-
-        return summary;
-    }
-
-    boolean hasOOM(int x, int y) {
-        if (this.gi.outOfHeapSpace == null) {
-            return false;
-        } else {
-            for (int i = 0; i < this.gi.outOfHeapSpace.length; ++i) {
-                if (x <= this.gi.outOfHeapSpace[i] && y >= this.gi.outOfHeapSpace[i]) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-    }
+//    boolean hasOOM(int x, int y) {
+//        if (this.gi.outOfHeapSpace == null) {
+//            return false;
+//        } else {
+//            for (int i = 0; i < this.gi.outOfHeapSpace.length; ++i) {
+//                if (x <= this.gi.outOfHeapSpace[i] && y >= this.gi.outOfHeapSpace[i]) {
+//                    return true;
+//                }
+//            }
+//
+//            return false;
+//        }
+//    }
 
     public int indexOfContent(String str) {
         int idx = -1;
@@ -1114,51 +1112,51 @@ public class FileTask {
         return idx;
     }
 
-    public boolean isDone() {
-        return this.done;
-    }
-
-    boolean isFragmented(int idx) {
-        if (this.gi.free[idx] < 1000000L) {
-            return false;
-        } else if ((double) ((float) this.gi.free[idx] / (float) this.gi.total[idx]) > 0.1D) {
-            return true;
-        } else {
-            return (double) ((float) this.getRequested(idx) / (float) this.gi.free[idx]) < 0.05D;
-        }
-    }
-
-    private boolean isSamePID(ThreadDump[] td) {
-        long pid = td[0].pid;
-
-        for (int i = 1; i < td.length; ++i) {
-            if (pid != td[i].pid) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    boolean isStartPoint(int idx) {
-        if (idx < this.gi.free.length && idx >= 0) {
-            if (idx == 0) {
-                return true;
-            } else {
-                return this.gi.ngc[idx - 1] >= this.gi.ngc[idx];
-            }
-        } else {
-            return false;
-        }
-    }
-
-    boolean isTooLarge(int idx) {
-        if (this.getRequested(idx) < SIZE_OF_LARGE_OBJECT) {
-            return false;
-        } else {
-            return (double) ((float) this.getRequested(idx) / (float) this.gi.free[idx]) > 0.1D;
-        }
-    }
+//    public boolean isDone() {
+//        return this.done;
+//    }
+//
+//    boolean isFragmented(int idx) {
+//        if (this.gi.free[idx] < 1000000L) {
+//            return false;
+//        } else if ((double) ((float) this.gi.free[idx] / (float) this.gi.total[idx]) > 0.1D) {
+//            return true;
+//        } else {
+//            return (double) ((float) this.getRequested(idx) / (float) this.gi.free[idx]) < 0.05D;
+//        }
+//    }
+//
+//    private boolean isSamePID(ThreadDump[] td) {
+//        long pid = td[0].pid;
+//
+//        for (int i = 1; i < td.length; ++i) {
+//            if (pid != td[i].pid) {
+//                return false;
+//            }
+//        }
+//
+//        return true;
+//    }
+//
+//    boolean isStartPoint(int idx) {
+//        if (idx < this.gi.free.length && idx >= 0) {
+//            if (idx == 0) {
+//                return true;
+//            } else {
+//                return this.gi.ngc[idx - 1] >= this.gi.ngc[idx];
+//            }
+//        } else {
+//            return false;
+//        }
+//    }
+//
+//    boolean isTooLarge(int idx) {
+//        if (this.getRequested(idx) < SIZE_OF_LARGE_OBJECT) {
+//            return false;
+//        } else {
+//            return (double) ((float) this.getRequested(idx) / (float) this.gi.free[idx]) > 0.1D;
+//        }
+//    }
 
     public static long jinwooDecode(String ad) throws NumberFormatException {
         if (ad == null) {
@@ -1232,11 +1230,9 @@ public class FileTask {
         }
     }
 
-    public String processThreadDump(File[] file, boolean headless) {
+    public String processThreadDump(File[] file) {
         ThreadInfo threadInfo = null;
-        if (headless) {
-            threadInfo = new ThreadInfo();
-        }
+        threadInfo = new ThreadInfo();
 
         Date dt = new Date();
         ParsePosition pos = new ParsePosition(0);
@@ -1723,12 +1719,7 @@ public class FileTask {
                                         }
 
                                         td.summary = td.summary + commandLine;
-                                        if (headless) {
-                                            threadInfo.threadDumps.add(td);
-                                        } else {
-                                            //todo-headless参数影响
-//                                            this.ha.ti.threadDumps.add(td);
-                                        }
+                                        threadInfo.threadDumps.add(td);
                                     }
 
                                     threadLine.clear();
@@ -1832,15 +1823,13 @@ public class FileTask {
                                     td.userArgs = td.userArgs + args;
                                     td.summary = td.summary + "<tr><td>" + args + "</td></tr>";
                                     if (td.commandLineTable == null) {
-                                        td.commandLineTable = new JTable(new DefaultTableModel() {
-                                            public boolean isCellEditable(int row, int column) {
-                                                return false;
-                                            }
-                                        });
-                                        ((DefaultTableModel) td.commandLineTable.getModel()).addColumn("Arguments");
+                                        td.commandLineTable = new CommonTable();
+                                        td.commandLineTable.columnLabelList = new ArrayList<>();
+                                        td.commandLineTable.columnLabelList.add("Arguments");
+                                        td.commandLineTable.dataList = new ArrayList<>();
                                     }
 
-                                    ((DefaultTableModel) td.commandLineTable.getModel()).addRow(new String[]{args});
+                                    td.commandLineTable.dataList.add(Arrays.asList(args));
                                     break;
                                 }
 
@@ -1994,22 +1983,16 @@ public class FileTask {
 
                                             if (hard != null && soft != null) {
                                                 if (td.ulimitTable == null) {
-                                                    td.ulimitTable = new JTable(new DefaultTableModel() {
-                                                        public boolean isCellEditable(int row, int column) {
-                                                            return false;
-                                                        }
-                                                    });
-                                                    ((DefaultTableModel) td.ulimitTable.getModel()).addColumn("Type");
-                                                    ((DefaultTableModel) td.ulimitTable.getModel()).addColumn("Soft Limit");
-                                                    ((DefaultTableModel) td.ulimitTable.getModel()).addColumn("Hard Limit");
-                                                    DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-                                                    rightRenderer.setHorizontalAlignment(4);
-                                                    td.ulimitTable.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
-                                                    td.ulimitTable.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+                                                    td.ulimitTable = new CommonTable();
+                                                    td.ulimitTable.columnLabelList = new ArrayList<>();
+                                                    td.ulimitTable.columnLabelList.add("Type");
+                                                    td.ulimitTable.columnLabelList.add("Soft Limit");
+                                                    td.ulimitTable.columnLabelList.add("Hard Limit");
+                                                    td.ulimitTable.dataList = new ArrayList<>();
                                                 }
 
                                                 td.summary = td.summary + "<tr><td>" + type + "</td><td align=right>" + soft + "</td><td align=right>" + hard + "</td></tr>";
-                                                ((DefaultTableModel) td.ulimitTable.getModel()).addRow(new String[]{type, soft, hard});
+                                                td.ulimitTable.dataList.add(Arrays.asList(type, soft, hard));
                                             }
                                         } catch (NoSuchElementException var132) {
                                         }
@@ -2028,16 +2011,11 @@ public class FileTask {
                                 if (line.startsWith(cacheSummary)) {
                                     td.summary = td.summary + "<LI> Shared Class Cache Analysis<BR><BR><table border=\"1\"><col width=50%></col><col width=50%></col><caption align=\"bottom\">Shared Class Cache Analysis</caption><tr><th>Property</th><th>Value</th></tr>";
                                     if (td.sharedClassCacheTable == null) {
-                                        td.sharedClassCacheTable = new JTable(new DefaultTableModel() {
-                                            public boolean isCellEditable(int row, int column) {
-                                                return false;
-                                            }
-                                        });
-                                        ((DefaultTableModel) td.sharedClassCacheTable.getModel()).addColumn("Property");
-                                        ((DefaultTableModel) td.sharedClassCacheTable.getModel()).addColumn("Value");
-                                        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-                                        rightRenderer.setHorizontalAlignment(4);
-                                        td.sharedClassCacheTable.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
+                                        td.sharedClassCacheTable = new CommonTable();
+                                        td.sharedClassCacheTable.columnLabelList = new ArrayList<>();
+                                        td.sharedClassCacheTable.columnLabelList.add("Property");
+                                        td.sharedClassCacheTable.columnLabelList.add("Value");
+                                        td.sharedClassCacheTable.dataList = new ArrayList<>();
                                     }
 
                                     while ((line = in.readLine()) != null && line.indexOf("2SCLTEXT") >= 0 || line.indexOf(nullSignature) >= 0) {
@@ -2058,14 +2036,14 @@ public class FileTask {
 
                                                     if (n == null) {
                                                         td.summary = td.summary + "<tr><td>" + vname + "</td><td>" + vvalue + "</td></tr>";
-                                                        ((DefaultTableModel) td.sharedClassCacheTable.getModel()).addRow(new String[]{vname, vvalue});
+                                                        td.sharedClassCacheTable.dataList.add(Arrays.asList(vname, vvalue));
                                                     } else {
                                                         td.summary = td.summary + "<tr><td>" + vname + "</td><td>" + numberFormatter.format(n) + "</td></tr>";
-                                                        ((DefaultTableModel) td.sharedClassCacheTable.getModel()).addRow(new String[]{vname, numberFormatter.format(n)});
+                                                        td.sharedClassCacheTable.dataList.add(Arrays.asList(vname, numberFormatter.format(n)));
                                                     }
                                                 } else {
                                                     td.summary = td.summary + "<tr><td>" + trimmed + "</td><td></td></tr>";
-                                                    ((DefaultTableModel) td.sharedClassCacheTable.getModel()).addRow(new String[]{trimmed});
+                                                    td.sharedClassCacheTable.dataList.add(Arrays.asList(trimmed));
                                                 }
 
                                                 if (line == null) {
@@ -2187,32 +2165,15 @@ public class FileTask {
                                         td.summary = td.summary + "<tr><td>" + vvname + "</td><td>" + vvalue + "</td></tr>";
                                         final String os = td.javaVersion;
                                         if (td.eVariables == null) {
-                                            td.eVariables = new JTable(new DefaultTableModel() {
-                                                public boolean isCellEditable(int row, int column) {
-                                                    return false;
-                                                }
-                                            }) {
-                                                public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-                                                    Component c = super.prepareRenderer(renderer, row, column);
-                                                    if (c instanceof JComponent) {
-                                                        JComponent jc = (JComponent) c;
-                                                        String v = (String) this.getValueAt(row, 0);
-                                                        String v2 = (String) this.getValueAt(row, 1);
-                                                        if (os == null || v == null || !v.toLowerCase().contains("path") && (v2 == null || v2.trim().length() <= 100)) {
-                                                            jc.setToolTipText((String) this.getValueAt(row, 1));
-                                                        } else {
-                                                            jc.setToolTipText(FileTask.this.splitPath((String) this.getValueAt(row, 1), os));
-                                                        }
-                                                    }
+                                            td.eVariables = new CommonTable();
+                                            td.eVariables.columnLabelList = new ArrayList<>();
+                                            td.eVariables.columnLabelList.add("Environment Variable");
+                                            td.eVariables.columnLabelList.add("Value");
 
-                                                    return c;
-                                                }
-                                            };
-                                            ((DefaultTableModel) td.eVariables.getModel()).addColumn("Environment Variable");
-                                            ((DefaultTableModel) td.eVariables.getModel()).addColumn("Value");
+                                            td.eVariables.dataList = new ArrayList<>();
                                         }
 
-                                        ((DefaultTableModel) td.eVariables.getModel()).addRow(new String[]{vvname, vvalue});
+                                        td.eVariables.dataList.add(Arrays.asList(new String[]{vvname, vvalue}));
                                         if (td.javaVersion != null && vvname != null && (vvname.toLowerCase().contains("path") || vvalue != null && vvalue.length() > 100)) {
                                             String del;
                                             if (td.javaVersion.toLowerCase().contains("win")) {
@@ -2295,24 +2256,16 @@ public class FileTask {
                                             }
 
                                             if (td.memorySegment == null) {
-                                                td.memorySegment = new JTable(new DefaultTableModel() {
-                                                    public boolean isCellEditable(int row, int column) {
-                                                        return false;
-                                                    }
-                                                });
-                                                ((DefaultTableModel) td.memorySegment.getModel()).addColumn("Memory Type");
-                                                ((DefaultTableModel) td.memorySegment.getModel()).addColumn("# of Segments");
-                                                ((DefaultTableModel) td.memorySegment.getModel()).addColumn("Used Memory(bytes)");
-                                                ((DefaultTableModel) td.memorySegment.getModel()).addColumn("Used Memory(%)");
-                                                ((DefaultTableModel) td.memorySegment.getModel()).addColumn("Free Memory(bytes)");
-                                                ((DefaultTableModel) td.memorySegment.getModel()).addColumn("Free Memory(%)");
-                                                ((DefaultTableModel) td.memorySegment.getModel()).addColumn("Total Memory(bytes)");
-                                                rightRenderer = new DefaultTableCellRenderer();
-                                                rightRenderer.setHorizontalAlignment(4);
+                                                td.memorySegment = new CommonTable();
+                                                td.memorySegment.columnLabelList = new ArrayList<>();
 
-                                                for (int l = 1; l <= 6; ++l) {
-                                                    td.memorySegment.getColumnModel().getColumn(l).setCellRenderer(rightRenderer);
-                                                }
+                                                td.memorySegment.columnLabelList.add("Memory Type");
+                                                td.memorySegment.columnLabelList.add("# of Segments");
+                                                td.memorySegment.columnLabelList.add("Used Memory(bytes)");
+                                                td.memorySegment.columnLabelList.add("Used Memory(%)");
+                                                td.memorySegment.columnLabelList.add("Free Memory(bytes)");
+                                                td.memorySegment.columnLabelList.add("Free Memory(%)");
+                                                td.memorySegment.columnLabelList.add("Total Memory(bytes)");
                                             }
 
                                             while (line.indexOf(memorySignature) < 0) {
@@ -2360,7 +2313,7 @@ public class FileTask {
                                                 td.summary = td.summary + "<tr><td>Java Heap (Virtual)</td><td align=right>" + numberFormatter.format(countIM) + "</td><td align=right>" + numberFormatter.format(heapInUse) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) heapInUse / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(heapFree) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) heapFree / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved) + "</td></tr>";
                                             }
 
-                                            ((DefaultTableModel) td.memorySegment.getModel()).addRow(new String[]{"Java Heap (Virtual)", numberFormatter.format(countIM), numberFormatter.format(heapInUse), numberFormatter.format((double) (100.0F * (float) heapInUse / (float) totalReserved)), numberFormatter.format(heapFree), numberFormatter.format((double) (100.0F * (float) heapFree / (float) totalReserved)), numberFormatter.format(totalReserved)});
+                                            td.memorySegment.dataList.add(Arrays.asList("Java Heap (Virtual)", numberFormatter.format(countIM), numberFormatter.format(heapInUse), numberFormatter.format((double) (100.0F * (float) heapInUse / (float) totalReserved)), numberFormatter.format(heapFree), numberFormatter.format((double) (100.0F * (float) heapFree / (float) totalReserved)), numberFormatter.format(totalReserved)));
                                             line = in.readLine();
                                             if (line.indexOf(nullSignature) >= 0) {
                                                 line = in.readLine();
@@ -2409,7 +2362,7 @@ public class FileTask {
                                                         td.summary = td.summary + "<tr><td>Internal (Virtual)</td><td align=right>" + numberFormatter.format(countIM) + "</td><td align=right>" + numberFormatter.format(totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved - totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved) + "</td></tr>";
                                                     }
 
-                                                    ((DefaultTableModel) td.memorySegment.getModel()).addRow(new String[]{"Internal (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)});
+                                                    td.memorySegment.dataList.add(Arrays.asList("Internal (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)));
                                                     sumCount += countIM;
                                                     sumUsed += totalUsed;
 
@@ -2464,7 +2417,7 @@ public class FileTask {
                                                                 td.summary = td.summary + "<tr><td>Class (Virtual)</td><td align=right>" + numberFormatter.format(countIM) + "</td><td align=right>" + numberFormatter.format(totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved - totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved) + "</td></tr>";
                                                             }
 
-                                                            ((DefaultTableModel) td.memorySegment.getModel()).addRow(new String[]{"Class (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)});
+                                                            td.memorySegment.dataList.add(Arrays.asList("Class (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)));
                                                             sumCount += countIM;
                                                             sumUsed += totalUsed;
 
@@ -2519,7 +2472,7 @@ public class FileTask {
                                                                         td.summary = td.summary + "<tr><td>JIT Code Cache (Virtual)</td><td align=right>" + numberFormatter.format(countIM) + "</td><td align=right>" + numberFormatter.format(totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved - totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved) + "</td></tr>";
                                                                     }
 
-                                                                    ((DefaultTableModel) td.memorySegment.getModel()).addRow(new String[]{"JIT Code Cache (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)});
+                                                                    td.memorySegment.dataList.add(Arrays.asList("JIT Code Cache (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)));
                                                                     sumCount += countIM;
                                                                     sumUsed += totalUsed;
 
@@ -2574,7 +2527,7 @@ public class FileTask {
                                                                                 td.summary = td.summary + "<tr><td>JIT Data Cache (Virtual)</td><td align=right>" + numberFormatter.format(countIM) + "</td><td align=right>" + numberFormatter.format(totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved - totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved) + "</td></tr>";
                                                                             }
 
-                                                                            ((DefaultTableModel) td.memorySegment.getModel()).addRow(new String[]{"JIT Data Cache (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)});
+                                                                            td.memorySegment.dataList.add(Arrays.asList("JIT Data Cache (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)));
                                                                             sumCount += countIM;
                                                                             sumUsed += totalUsed;
                                                                             sumReserved += totalReserved;
@@ -2582,7 +2535,7 @@ public class FileTask {
                                                                                 td.summary = td.summary + "<tr><td>Overall (Virtual)</td><td align=right>" + numberFormatter.format(sumCount) + "</td><td align=right>" + numberFormatter.format(sumUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) sumUsed / (float) sumReserved)) + "</td><td align=right>" + numberFormatter.format(sumReserved - sumUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) (sumReserved - sumUsed) / (float) sumReserved)) + "</td><td align=right>" + numberFormatter.format(sumReserved) + "</td></tr></table><BR><BR>";
                                                                             }
 
-                                                                            ((DefaultTableModel) td.memorySegment.getModel()).addRow(new String[]{"Overall (Virtual)", numberFormatter.format(sumCount), numberFormatter.format(sumUsed), numberFormatter.format((double) (100.0F * (float) sumUsed / (float) sumReserved)), numberFormatter.format(sumReserved - sumUsed), numberFormatter.format((double) (100.0F * (float) (sumReserved - sumUsed) / (float) sumReserved)), numberFormatter.format(sumReserved)});
+                                                                            td.memorySegment.dataList.add(Arrays.asList("Overall (Virtual)", numberFormatter.format(sumCount), numberFormatter.format(sumUsed), numberFormatter.format((double) (100.0F * (float) sumUsed / (float) sumReserved)), numberFormatter.format(sumReserved - sumUsed), numberFormatter.format((double) (100.0F * (float) (sumReserved - sumUsed) / (float) sumReserved)), numberFormatter.format(sumReserved)));
                                                                             if (td.allocated == -1L) {
                                                                                 td.summary = td.summary + "<LI>Total Java heap size: unknown<BR><BR>";
                                                                             } else {
@@ -2678,27 +2631,19 @@ public class FileTask {
                                         sumUsed += totalUsed;
                                         sumReserved += totalReserved;
                                         if (td.memorySegment == null) {
-                                            td.memorySegment = new JTable(new DefaultTableModel() {
-                                                public boolean isCellEditable(int row, int column) {
-                                                    return false;
-                                                }
-                                            });
-                                            ((DefaultTableModel) td.memorySegment.getModel()).addColumn("Memory Type");
-                                            ((DefaultTableModel) td.memorySegment.getModel()).addColumn("# of Segments");
-                                            ((DefaultTableModel) td.memorySegment.getModel()).addColumn("Used Memory(bytes)");
-                                            ((DefaultTableModel) td.memorySegment.getModel()).addColumn("Used Memory(%)");
-                                            ((DefaultTableModel) td.memorySegment.getModel()).addColumn("Free Memory(bytes)");
-                                            ((DefaultTableModel) td.memorySegment.getModel()).addColumn("Free Memory(%)");
-                                            ((DefaultTableModel) td.memorySegment.getModel()).addColumn("Total Memory(bytes)");
-                                            rightRenderer = new DefaultTableCellRenderer();
-                                            rightRenderer.setHorizontalAlignment(4);
-
-                                            for (int l = 1; l <= 6; ++l) {
-                                                td.memorySegment.getColumnModel().getColumn(l).setCellRenderer(rightRenderer);
-                                            }
+                                            td.memorySegment = new CommonTable();
+                                            td.memorySegment.columnLabelList = new ArrayList<>();
+                                            td.memorySegment.columnLabelList.add("Memory Type");
+                                            td.memorySegment.columnLabelList.add("# of Segments");
+                                            td.memorySegment.columnLabelList.add("Used Memory(bytes)");
+                                            td.memorySegment.columnLabelList.add("Used Memory(%)");
+                                            td.memorySegment.columnLabelList.add("Free Memory(bytes)");
+                                            td.memorySegment.columnLabelList.add("Free Memory(%)");
+                                            td.memorySegment.columnLabelList.add("Total Memory(bytes)");
+                                            td.memorySegment.dataList = new ArrayList<>();
                                         }
 
-                                        ((DefaultTableModel) td.memorySegment.getModel()).addRow(new String[]{"Internal (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)});
+                                        td.memorySegment.dataList.add(Arrays.asList("Internal (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)));
                                         if (line.indexOf(nullSignature) < 0) {
                                             continue;
                                         }
@@ -2762,7 +2707,7 @@ public class FileTask {
                                             td.summary = td.summary + "<tr><td>Java Heap (Virtual)</td><td align=right>" + numberFormatter.format(countIM) + "</td><td align=right>" + numberFormatter.format(totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved - totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved) + "</td></tr>";
                                         }
 
-                                        ((DefaultTableModel) td.memorySegment.getModel()).addRow(new String[]{"Java Heap (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)});
+                                        td.memorySegment.dataList.add(Arrays.asList("Java Heap (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)));
                                         sumCount += countIM;
                                         sumUsed += totalUsed;
                                         sumReserved += totalReserved;
@@ -2829,7 +2774,7 @@ public class FileTask {
                                             td.summary = td.summary + "<tr><td>Class (Virtual)</td><td align=right>" + numberFormatter.format(countIM) + "</td><td align=right>" + numberFormatter.format(totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved - totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved) + "</td></tr>";
                                         }
 
-                                        ((DefaultTableModel) td.memorySegment.getModel()).addRow(new String[]{"Class (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)});
+                                        td.memorySegment.dataList.add(Arrays.asList("Class (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)));
                                         sumCount += countIM;
                                         sumUsed += totalUsed;
                                         sumReserved += totalReserved;
@@ -2900,7 +2845,7 @@ public class FileTask {
                                             td.summary = td.summary + "<tr><td>JIT Code Cache (Virtual)</td><td align=right>" + numberFormatter.format(countIM) + "</td><td align=right>" + numberFormatter.format(totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved - totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved) + "</td></tr>";
                                         }
 
-                                        ((DefaultTableModel) td.memorySegment.getModel()).addRow(new String[]{"JIT Code Cache (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)});
+                                        td.memorySegment.dataList.add(Arrays.asList("JIT Code Cache (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)));
                                         sumCount += countIM;
                                         sumUsed += totalUsed;
                                         sumReserved += totalReserved;
@@ -2971,7 +2916,7 @@ public class FileTask {
                                             td.summary = td.summary + "<tr><td>JIT Data Cache (Virtual)</td><td align=right>" + numberFormatter.format(countIM) + "</td><td align=right>" + numberFormatter.format(totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved - totalUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)) + "</td><td align=right>" + numberFormatter.format(totalReserved) + "</td></tr>";
                                         }
 
-                                        ((DefaultTableModel) td.memorySegment.getModel()).addRow(new String[]{"JIT Data Cache (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)});
+                                        td.memorySegment.dataList.add(Arrays.asList("JIT Data Cache (Virtual)", numberFormatter.format(countIM), numberFormatter.format(totalUsed), numberFormatter.format((double) (100.0F * (float) totalUsed / (float) totalReserved)), numberFormatter.format(totalReserved - totalUsed), numberFormatter.format((double) (100.0F * (float) (totalReserved - totalUsed) / (float) totalReserved)), numberFormatter.format(totalReserved)));
                                         sumCount += countIM;
                                         sumUsed += totalUsed;
                                         sumReserved += totalReserved;
@@ -2979,7 +2924,7 @@ public class FileTask {
                                             td.summary = td.summary + "<tr><td>Overall (Virtual)</td><td align=right>" + numberFormatter.format(sumCount) + "</td><td align=right>" + numberFormatter.format(sumUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) sumUsed / (float) sumReserved)) + "</td><td align=right>" + numberFormatter.format(sumReserved - sumUsed) + "</td><td align=right>" + numberFormatter.format((double) (100.0F * (float) (sumReserved - sumUsed) / (float) sumReserved)) + "</td><td align=right>" + numberFormatter.format(sumReserved) + "</td></tr></table><BR><BR>";
                                         }
 
-                                        ((DefaultTableModel) td.memorySegment.getModel()).addRow(new String[]{"Overall (Virtual)", numberFormatter.format(sumCount), numberFormatter.format(sumUsed), numberFormatter.format((double) (100.0F * (float) sumUsed / (float) sumReserved)), numberFormatter.format(sumReserved - sumUsed), numberFormatter.format((double) (100.0F * (float) (sumReserved - sumUsed) / (float) sumReserved)), numberFormatter.format(sumReserved)});
+                                        td.memorySegment.dataList.add(Arrays.asList("Overall (Virtual)", numberFormatter.format(sumCount), numberFormatter.format(sumUsed), numberFormatter.format((double) (100.0F * (float) sumUsed / (float) sumReserved)), numberFormatter.format(sumReserved - sumUsed), numberFormatter.format((double) (100.0F * (float) (sumReserved - sumUsed) / (float) sumReserved)), numberFormatter.format(sumReserved)));
                                         break;
                                     }
 
@@ -3784,15 +3729,13 @@ public class FileTask {
                                         Long waitingThreadId = td.tid[totalThread - 1];
                                         boolean alreadyHasLock = false;
 
-                                        for(Iterator iterator1 = mon.waiting.iterator(); iterator1.hasNext();)
-                                        {
+                                        for (Iterator iterator1 = mon.waiting.iterator(); iterator1.hasNext(); ) {
                                             Object obj = iterator1.next();
-                                            if(obj instanceof Long)
-                                            {
-                                                Long existingWaitingThreadId = (Long)obj;
-                                                if(debug)
+                                            if (obj instanceof Long) {
+                                                Long existingWaitingThreadId = (Long) obj;
+                                                if (debug)
                                                     System.out.println((new StringBuilder("Existing waiting thread ID: ")).append(existingWaitingThreadId).toString());
-                                                if(existingWaitingThreadId == waitingThreadId)
+                                                if (existingWaitingThreadId == waitingThreadId)
                                                     alreadyHasLock = true;
                                             }
                                         }
@@ -3819,12 +3762,7 @@ public class FileTask {
                         for (; line != null; this.overall = 30 + (int) (70.0F * (float) fileLocation / (float) fileSize)) {
                             if (line.indexOf(threadDumpSignature) >= 0) {
                                 if (td != null) {
-                                    if (headless) {
-                                        threadInfo.threadDumps.add(td);
-                                    } else {
-                                        //todo-ha
-//                                        this.ha.ti.threadDumps.add(td);
-                                    }
+                                    threadInfo.threadDumps.add(td);
 
                                     td = null;
                                 }
@@ -3922,7 +3860,7 @@ public class FileTask {
                                             stateString = stateString.substring(stateString.indexOf(" ") + 1);
                                         }
 
-                                        int stateInt =4;
+                                        int stateInt = 4;
                                         if (stateString.startsWith("runnable")) {
                                             ++td.numberOfRunnable;
                                             stateInt = 0;
@@ -4022,9 +3960,7 @@ public class FileTask {
                         }
 
                         if (td != null) {
-                            if (headless) {
-                                threadInfo.threadDumps.add(td);
-                            }
+                            threadInfo.threadDumps.add(td);
                         }
                     }
 
@@ -4060,10 +3996,6 @@ public class FileTask {
                     }
                 } catch (Exception var134) {
                     System.out.println(in.getLastLineExceptionDiagnostics(var134));
-                    if (!headless) {
-                        //todo-ha
-//                        this.ha.handleException(var134);
-                    }
                     continue;
                 }
 
@@ -4074,23 +4006,11 @@ public class FileTask {
         }
 
         int size;
-        if (headless) {
-            size = threadInfo.threadDumps.size();
-        } else {
-            //todo-ha
-            size = threadInfo.threadDumps.size();
-//            size = this.ha.ti.threadDumps.size();
-        }
+        size = threadInfo.threadDumps.size();
 
         for (i = 0; i < size; ++i) {
             ThreadDump td;
-            if (headless) {
-                td = (ThreadDump) threadInfo.threadDumps.get(i);
-            } else {
-                //todo-ha
-                td = (ThreadDump) threadInfo.threadDumps.get(i);
-//                td = (ThreadDump)this.ha.ti.threadDumps.get(i);
-            }
+            td = (ThreadDump) threadInfo.threadDumps.get(i);
 
 //            int x;
             if (!td.isIBM) {
@@ -4175,117 +4095,104 @@ public class FileTask {
                 this.checkIdle(td.javaStack[x], x, td);
             }
 
-            if (td.sortedArray == null) {
-                td.sortedArray = new long[2][td.sys_thread.length];
-
-                for (int j = 0; j < td.sys_thread.length; ++j) {
-                    td.sortedArray[0][j] = td.sys_thread[j];
-                    td.sortedArray[1][j] = (long) j;
-                }
-
-                Arrays2.sort(td.sortedArray);
-            }
-
-            if (td.stateArray == null) {
-                td.stateArray = new int[td.state.length];
-                int[][] tempArray = new int[2][td.state.length];
-
-                for (int j = 0; j < td.state.length; tempArray[1][j] = j++) {
-                    tempArray[0][j] = td.state[j];
-                }
-
-                Arrays2.sort(tempArray);
-
-                for (int j = 0; j < td.state.length; ++j) {
-                    td.stateArray[j] = tempArray[1][j];
-                }
-
-                in = null;
-            }
-
-            long[][] tempArray;
-            if (td.idArray == null) {
-                td.idArray = new int[td.nid.length];
-                tempArray = new long[2][td.nid.length];
-
-                for (int j = 0; j < td.nid.length; ++j) {
-                    tempArray[0][j] = td.nid[j];
-                    tempArray[1][j] = (long) j;
-                }
-
-                Arrays2.sort(tempArray);
-
-                for (int j = 0; j < td.nid.length; ++j) {
-                    td.idArray[j] = (int) tempArray[1][j];
-                }
-
-                in = null;
-            }
-
-            if (td.nameArray == null) {
-                td.nameArray = new int[td.tid.length];
-                String EMPTY = "";
-                String[] tempString = new String[td.name.length];
-
-                for (int j = 0; j < td.nameArray.length; td.nameArray[j] = j++) {
-                    tempString[j] = td.name[j];
-                    if (tempString[j] == null) {
-                        tempString[j] = EMPTY;
-                    }
-                }
-
-                Arrays2.sort(tempString, td.nameArray);
-                threadLine = null;
-            }
-
-            if (td.currentMethodArray == null) {
-                td.currentMethodArray = new int[td.tid.length];
-                String[] tempString = new String[td.name.length];
-
-                for (int j = 0; j < td.currentMethodArray.length; td.currentMethodArray[j] = j++) {
-                    tempString[j] = td.getCurrentMethod(j);
-                }
-
-                Arrays2.sort(tempString, td.currentMethodArray);
-                in = null;
-            }
-
-            if (td.sortedDepthArray == null) {
-                td.sortedDepthArray = new int[td.nid.length];
-                tempArray = new long[2][td.nid.length];
-
-                for (int j = 0; j < td.nid.length; ++j) {
-                    tempArray[0][j] = (long) td.javaStackDepth[j];
-                    tempArray[1][j] = (long) j;
-                }
-
-                Arrays2.sort(tempArray);
-
-                for (int j = 0; j < td.nid.length; ++j) {
-                    td.sortedDepthArray[j] = (int) tempArray[1][j];
-                }
-
-                in = null;
-            }
-        }
-
-        if (!headless) {
-            //todo-ha
-//            this.jp.dispose();
+//            if (td.sortedArray == null) {
+//                td.sortedArray = new long[2][td.sys_thread.length];
+//
+//                for (int j = 0; j < td.sys_thread.length; ++j) {
+//                    td.sortedArray[0][j] = td.sys_thread[j];
+//                    td.sortedArray[1][j] = (long) j;
+//                }
+//
+//                Arrays2.sort(td.sortedArray);
+//            }
+//
+//            if (td.stateArray == null) {
+//                td.stateArray = new int[td.state.length];
+//                int[][] tempArray = new int[2][td.state.length];
+//
+//                for (int j = 0; j < td.state.length; tempArray[1][j] = j++) {
+//                    tempArray[0][j] = td.state[j];
+//                }
+//
+//                Arrays2.sort(tempArray);
+//
+//                for (int j = 0; j < td.state.length; ++j) {
+//                    td.stateArray[j] = tempArray[1][j];
+//                }
+//
+//                in = null;
+//            }
+//
+//            long[][] tempArray;
+//            if (td.idArray == null) {
+//                td.idArray = new int[td.nid.length];
+//                tempArray = new long[2][td.nid.length];
+//
+//                for (int j = 0; j < td.nid.length; ++j) {
+//                    tempArray[0][j] = td.nid[j];
+//                    tempArray[1][j] = (long) j;
+//                }
+//
+//                Arrays2.sort(tempArray);
+//
+//                for (int j = 0; j < td.nid.length; ++j) {
+//                    td.idArray[j] = (int) tempArray[1][j];
+//                }
+//
+//                in = null;
+//            }
+//
+//            if (td.nameArray == null) {
+//                td.nameArray = new int[td.tid.length];
+//                String EMPTY = "";
+//                String[] tempString = new String[td.name.length];
+//
+//                for (int j = 0; j < td.nameArray.length; td.nameArray[j] = j++) {
+//                    tempString[j] = td.name[j];
+//                    if (tempString[j] == null) {
+//                        tempString[j] = EMPTY;
+//                    }
+//                }
+//
+//                Arrays2.sort(tempString, td.nameArray);
+//                threadLine = null;
+//            }
+//
+//            if (td.currentMethodArray == null) {
+//                td.currentMethodArray = new int[td.tid.length];
+//                String[] tempString = new String[td.name.length];
+//
+//                for (int j = 0; j < td.currentMethodArray.length; td.currentMethodArray[j] = j++) {
+//                    tempString[j] = td.getCurrentMethod(j);
+//                }
+//
+//                Arrays2.sort(tempString, td.currentMethodArray);
+//                in = null;
+//            }
+//
+//            if (td.sortedDepthArray == null) {
+//                td.sortedDepthArray = new int[td.nid.length];
+//                tempArray = new long[2][td.nid.length];
+//
+//                for (int j = 0; j < td.nid.length; ++j) {
+//                    tempArray[0][j] = (long) td.javaStackDepth[j];
+//                    tempArray[1][j] = (long) j;
+//                }
+//
+//                Arrays2.sort(tempArray);
+//
+//                for (int j = 0; j < td.nid.length; ++j) {
+//                    td.sortedDepthArray[j] = (int) tempArray[1][j];
+//                }
+//
+//                in = null;
+//            }
         }
 
         this.done = true;
-        if (!headless) {
-            //todo-ha
-//            this.ha.threadDumpTable.updateUI();
-        }
 
-        if (headless) {
-            String s = this.generateReport(threadInfo);
-            return s;
-        } else {
-            return null;
-        }
+//            return  this.generateReport(threadInfo);
+        return null;
     }
 
     private String replaceEntities(String line) {
