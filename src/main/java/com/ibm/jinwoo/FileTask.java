@@ -1242,40 +1242,40 @@ public class FileTask {
         long numberOfClassLoader = 0L;
         long heapLimit = -1L;
         long heapBase = -1L;
-        int pinIdx = 0;
-        long dosed = 0L;
-        long pinned = 0L;
-        long classes = 0L;
-        long maxClass = 0L;
-        long maxClassTS = 0L;
-        long maxPinned = 0L;
-        long maxPinnedTS = 0L;
-        long maxDosed = 0L;
-        long maxDosedTS = 0L;
-        long pCluster = 0L;
+//        int pinIdx = 0;
+//        long dosed = 0L;
+//        long pinned = 0L;
+//        long classes = 0L;
+//        long maxClass = 0L;
+//        long maxClassTS = 0L;
+//        long maxPinned = 0L;
+//        long maxPinnedTS = 0L;
+//        long maxDosed = 0L;
+//        long maxDosedTS = 0L;
+//        long pCluster = 0L;
         Boolean found = null;
         long fileLocation = 0L;
         this.gi = new GCInfo();
         Vector rv = new Vector(10, 100);
-        int index = 0;
-        int totalNames = 0;
-        long totalNodes = 0L;
+//        int index = 0;
+//        int totalNames = 0;
+//        long totalNodes = 0L;
         String line = new String();
         Vector cv = new Vector(1);
-        int result = 0;
-        int progress = 0;
-        int p = 0;
-        int i = 0;
+//        int result = 0;
+//        int progress = 0;
+//        int p = 0;
+//        int i = 0;
 //        int j = 0;
 //        int waitIndex = 0;
 //        int k = 0;
-        int gcNumber = 0;
-        int numberOfSet = 1;
+//        int gcNumber = 0;
+//        int numberOfSet = 1;
         int totalThread = 0;
         int totalThreadDump = -1;
-        int nextGcNumber = 0;
-        int outOfHeapSpace = 0;
-        HashSet threadLine;
+//        int nextGcNumber = 0;
+//        int outOfHeapSpace = 0;
+//        HashSet threadLine;
 
         BufferedReaderWrapper in;
 //        int parentloader;
@@ -1292,13 +1292,13 @@ public class FileTask {
             numberOfClasses = 0L;
             this.monList = new ArrayList();
             this.threadIdent = new Hashtable();
-            progress = 0;
+//            progress = 0;
             this.overall = 0;
             this.statMessage = "Loading thread dump";
-            gcNumber = 0;
-            numberOfSet = 1;
-            nextGcNumber = 0;
-            outOfHeapSpace = 0;
+//            gcNumber = 0;
+//            numberOfSet = 1;
+//            nextGcNumber = 0;
+//            outOfHeapSpace = 0;
             ArrayList list = new ArrayList();
             in = null;
 
@@ -1322,7 +1322,7 @@ public class FileTask {
                 }
 
                 if (this.isJavacore) {
-                    threadLine = new HashSet();
+                    HashSet threadLine = new HashSet();
 
                     while (true) {
                         if (line == null) {
@@ -1359,7 +1359,7 @@ public class FileTask {
                                     }
                                 }
                             } else if (line.startsWith(signatureCurrentHeapBase)) {
-                                i = line.indexOf(":");
+                                int i = line.indexOf(":");
                                 if (i != -1) {
                                     int j = line.indexOf("0x");
                                     if (j == -1) {
@@ -1369,7 +1369,7 @@ public class FileTask {
                                     }
                                 }
                             } else if (line.startsWith(signatureCurrentHeapLimit)) {
-                                i = line.indexOf(":");
+                                int i = line.indexOf(":");
                                 if (i != -1) {
                                     int j = line.indexOf("0x");
                                     if (j == -1) {
@@ -1379,7 +1379,7 @@ public class FileTask {
                                     }
                                 }
                             } else if (line.startsWith(signatureClass)) {
-                                i = line.lastIndexOf("(0x");
+                                int i = line.lastIndexOf("(0x");
                                 int j = line.lastIndexOf(")");
                                 if (i != -1 && j != -1 && heapBase == -1L) {
                                     ++numberOfClasses;
@@ -1400,7 +1400,7 @@ public class FileTask {
                         if (line != null) {
                             fileLocation += (long) line.length();
                             if (line.startsWith(threadIDMonSignature)) {
-                                i = line.indexOf(" \"");
+                                int i = line.indexOf(" \"");
                                 if (i != -1) {
                                     Long key = new Long(jinwooDecode("0x" + line.substring(threadIDMonSignature.length(), i)));
                                     i = line.lastIndexOf(threadIDMonIDSignature);
@@ -1491,7 +1491,7 @@ public class FileTask {
 //                    String tempS;
                     boolean inArgs;
                     if (this.isJavacore) {
-                        threadLine = new HashSet();
+                        HashSet threadLine = new HashSet();
                         td = new ThreadDump();
                         td.xmx = -1L;
                         td.isIBM = true;
@@ -1593,7 +1593,7 @@ public class FileTask {
                                             String loaspaceSignature = "loa=";
                                             long free = 0L;
                                             long total = 0L;
-                                            i = td.gcHistory.indexOf(newspaceSignature);
+                                            int i = td.gcHistory.indexOf(newspaceSignature);
                                             if (i >= 0) {
                                                 String newspace = td.gcHistory.substring(i + newspaceSignature.length());
                                                 int j = newspace.indexOf("/");
@@ -1660,7 +1660,7 @@ public class FileTask {
                                         if (td.isJ9 && td.gcHistory != null) {
                                             if (td.gc == -1L) {
                                                 String globalSignature = "globalcount=";
-                                                i = td.gcHistory.indexOf(globalSignature);
+                                                int i = td.gcHistory.indexOf(globalSignature);
                                                 if (i >= 0) {
                                                     String global = td.gcHistory.substring(i + globalSignature.length());
                                                     int j = global.indexOf(" ");
@@ -1672,7 +1672,7 @@ public class FileTask {
 
                                             if (td.af == -1L) {
                                                 String scaSignature = "scavengecount=";
-                                                i = td.gcHistory.indexOf(scaSignature);
+                                                int i = td.gcHistory.indexOf(scaSignature);
                                                 if (i >= 0) {
                                                     String sca = td.gcHistory.substring(i + scaSignature.length());
                                                     int j = sca.indexOf(" ");
@@ -1757,7 +1757,7 @@ public class FileTask {
                                     String converted = line.replace('<', ' ');
                                     line = converted.replace('>', ' ');
                                     td.summary = td.summary + "<LI>" + line.substring(timeStampSignature.length()).trim() + "<BR><BR>";
-                                    i = line.indexOf(":");
+                                    int i = line.indexOf(":");
                                     if (i != -1) {
                                         dt = null;
 
@@ -1860,7 +1860,7 @@ public class FileTask {
                                 }
 
                                 if (line.startsWith(freeSignature)) {
-                                    i = line.indexOf(": ");
+                                    int i = line.indexOf(": ");
                                     if (i == -1) {
                                         td.summary = td.summary + line.substring(freeSignature.length()).trim() + "<BR>";
                                     } else {
@@ -1880,7 +1880,7 @@ public class FileTask {
                                 }
 
                                 if (line.startsWith(allocatedSignature)) {
-                                    i = line.indexOf(": ");
+                                    int i = line.indexOf(": ");
                                     if (i == -1) {
                                         td.summary = td.summary + line.substring(allocatedSignature.length()).trim() + "<BR><BR>";
                                     } else {
@@ -1900,7 +1900,7 @@ public class FileTask {
                                 }
 
                                 if (line.startsWith(afCounterSignature)) {
-                                    i = line.indexOf(": ");
+                                    int i = line.indexOf(": ");
                                     if (i != -1) {
                                         td.af = jinwooDecode(line.substring(i + 2).trim());
                                     }
@@ -1910,7 +1910,7 @@ public class FileTask {
                                 }
 
                                 if (line.startsWith(gcCounterSignature)) {
-                                    i = line.indexOf(": ");
+                                    int i = line.indexOf(": ");
                                     if (i != -1) {
                                         td.gc = jinwooDecode(line.substring(i + 2).trim());
                                     }
@@ -1925,7 +1925,7 @@ public class FileTask {
                                     levels[0] = new DefaultMutableTreeNode("Native Memory : Size / Allocation");
                                     for (; line != null && line.contains(MEMUSER); line = in.readLine()) {
                                         int level = Integer.parseInt(line.substring(0, line.indexOf(MEMUSER)));
-                                        i = line.indexOf(":");
+                                        int i = line.indexOf(":");
                                         if (i >= 0) {
                                             int j = line.lastIndexOf("-");
                                             if (j < 0) {
@@ -2214,7 +2214,7 @@ public class FileTask {
                                 long sumUsed;
                                 long sumReserved;
                                 DefaultTableCellRenderer rightRenderer;
-                                long value;
+//                                long value;
 //                                StringTokenizer st;
 //                                long base;
                                 long alloc;
@@ -2223,8 +2223,8 @@ public class FileTask {
                                     if (line.indexOf(nullSignature) >= 0) {
                                         line = in.readLine();
                                         if (line.indexOf(memorySegmentSignature626) >= 0) {
-                                            value = 0L;
-                                            value = 0L;
+                                            long usedIM  = 0L;
+                                            long reservedIM = 0L;
                                             countIM = 0L;
 //                                            Xmt = null;
                                             totalUsed = 0L;
@@ -2271,7 +2271,7 @@ public class FileTask {
                                             while (line.indexOf(memorySignature) < 0) {
                                                 line = in.readLine();
                                                 if (line.startsWith(freeSignature)) {
-                                                    i = line.indexOf(": ");
+                                                    int i = line.indexOf(": ");
                                                     int j = line.indexOf("(");
                                                     if (i >= 0 && j >= 0) {
                                                         try {
@@ -2281,7 +2281,7 @@ public class FileTask {
                                                         }
                                                     }
                                                 } else if (line.startsWith("1STHEAPTOTAL")) {
-                                                    i = line.indexOf(": ");
+                                                    int i = line.indexOf(": ");
                                                     int j = line.indexOf("(");
                                                     if (i >= 0 && j >= 0) {
                                                         try {
@@ -2291,7 +2291,7 @@ public class FileTask {
                                                         }
                                                     }
                                                 } else if (line.startsWith("1STHEAPINUSE")) {
-                                                    i = line.indexOf(": ");
+                                                    int i = line.indexOf(": ");
                                                     int j = line.indexOf("(");
                                                     if (i >= 0 && j >= 0) {
                                                         try {
@@ -2576,8 +2576,8 @@ public class FileTask {
                                             continue;
                                         }
 
-                                        value = 0L;
-                                        value = 0L;
+                                        totalUsed = 0L;
+                                        totalReserved = 0L;
                                         countIM = 0L;
 //                                        Xmt = null;
                                         totalUsed = 0L;
@@ -3013,7 +3013,7 @@ public class FileTask {
                                             td.summary = td.summary + Xscminjitdata;
                                         }
 
-                                        i = line.lastIndexOf(" -Xmxcl");
+                                        int i = line.lastIndexOf(" -Xmxcl");
                                         if (i != -1) {
                                             td.summary = td.summary + "<LI>Maximum class loader size : " + line.substring(i + 7, line.indexOf(" ", i + 7)) + "<BR>";
                                         }
@@ -3074,16 +3074,17 @@ public class FileTask {
                                             }
 
                                             if (line.startsWith(deadlockThreadSignature)) {
-                                                i = line.lastIndexOf("(");
+                                                int i = line.lastIndexOf("(");
                                                 int j = line.lastIndexOf(")");
                                                 if (i != -1 && j != -1) {
+                                                    long systhread;
                                                     try {
-                                                        value = jinwooDecode(line.substring(i + 1, j));
+                                                        systhread = jinwooDecode(line.substring(i + 1, j));
                                                     } catch (NumberFormatException var121) {
-                                                        value = jinwooDecode("0x" + line.substring(i + 1, j));
+                                                        systhread = jinwooDecode("0x" + line.substring(i + 1, j));
                                                     }
 
-                                                    Long newSysThread = new Long(value);
+                                                    Long newSysThread = new Long(systhread);
                                                     if (td.deadlock == null) {
                                                         td.deadlock = new ArrayList();
                                                     }
@@ -3114,7 +3115,7 @@ public class FileTask {
 //                                    byte k;
 //                                    MonitorDump mon;
                                     if (line.startsWith(signatureHeapLock)) {
-                                        i = line.lastIndexOf(": owner \"");
+                                        int i = line.lastIndexOf(": owner \"");
                                         if (i == -1) {
                                             break;
                                         }
@@ -3137,7 +3138,7 @@ public class FileTask {
                                             break;
                                         }
 
-                                        value = jinwooDecode("0x" + line.substring(i + k, j));
+                                        long value = jinwooDecode("0x" + line.substring(i + k, j));
                                         MonitorDump mon = new MonitorDump(name, value, true);
                                         this.monList.add(this.monIndex++, mon);
                                         line = in.readLine();
@@ -3178,7 +3179,7 @@ public class FileTask {
 
                                     if (!line.startsWith(monSignature) && !line.startsWith(monSignatureSystem)) {
                                         if (line.startsWith(threadHeader1)) {
-                                            i = line.indexOf(threadNativeIDSignatureIBM6);
+                                            int i = line.indexOf(threadNativeIDSignatureIBM6);
                                             if (i >= 0) {
                                                 int end = line.indexOf(",", i);
                                                 if (end >= 0 && oldLine != null && !oldLine.contains(threadHeaderAnonymousNativeThread)) {
@@ -3195,7 +3196,7 @@ public class FileTask {
                                         if (line.startsWith(threadHeaderAlone) && !line.contains(threadHeaderAnonymousNativeThread) && !threadLine.contains(line) && this.isValidThread(line, td)) {
                                             threadLine.add(line);
                                             inAnonymous = false;
-                                            i = line.indexOf(threadStateSignature);
+                                            int i = line.indexOf(threadStateSignature);
                                             if (i != -1) {
                                                 int index_nid = line.indexOf(threadNativeIDSignature, i);
                                                 String stateString = null;
@@ -3343,7 +3344,7 @@ public class FileTask {
                                         break;
                                     }
 
-                                    i = line.indexOf(monSignature2);
+                                    int i = line.indexOf(monSignature2);
                                     if (i != -1) {
                                         int j = line.lastIndexOf(",");
                                         if (j == -1) {
@@ -3442,7 +3443,7 @@ public class FileTask {
                                             break;
                                         }
 
-                                        value = jinwooDecode("0x" + line.substring(i + k, j));
+                                        long value = jinwooDecode("0x" + line.substring(i + k, j));
                                         if (this.debug) {
                                             System.out.println("Monitor Owner: " + value);
                                         }
@@ -3561,7 +3562,7 @@ public class FileTask {
                                         break;
                                     }
 
-                                    value = jinwooDecode(line.substring(i + 1, j));
+                                    long value = jinwooDecode(line.substring(i + 1, j));
                                     i = line.indexOf(": Flat");
                                     if (i == -1) {
                                         break;
@@ -3640,7 +3641,7 @@ public class FileTask {
                                     }
                                 }
                             } else if (line.startsWith(stackTraceHeader)) {
-                                i = line.indexOf("at ");
+                                int i = line.indexOf("at ");
                                 if (i != -1 && totalThread != 0) {
                                     if (td.javaStack[totalThread - 1] == null) {
                                         td.javaStack[totalThread - 1] = new String();
@@ -3659,7 +3660,7 @@ public class FileTask {
                                     td.javaStackDepth[totalThread - 1]++;
                                 }
                             } else if (line.startsWith(stackLineHeader)) {
-                                i = line.indexOf("at ");
+                                int i = line.indexOf("at ");
                                 if (i != -1 && totalThread != 0) {
                                     if (td.nativeStack[totalThread - 1] == null) {
                                         td.nativeStack[totalThread - 1] = new String();
@@ -3668,7 +3669,7 @@ public class FileTask {
                                     td.nativeStack[totalThread - 1] = td.nativeStack[totalThread - 1] + line.substring(i) + "<BR>";
                                 }
                             } else if (line.startsWith(stackLineHeader2)) {
-                                i = this.indexOfContent(line);
+                                int i = this.indexOfContent(line);
                                 if (i != -1 && totalThread != 0) {
                                     if (td.nativeStack[totalThread - 1] == null) {
                                         td.nativeStack[totalThread - 1] = new String();
@@ -3677,7 +3678,7 @@ public class FileTask {
                                     td.nativeStack[totalThread - 1] = td.nativeStack[totalThread - 1] + line.substring(i) + "<BR>";
                                 }
                             } else if (line.startsWith(stackLineHeaderIBM6) && !inAnonymous) {
-                                i = this.indexOfContent(line);
+                                int i = this.indexOfContent(line);
                                 if (i != -1 && totalThread != 0) {
                                     if (td.nativeStack[totalThread - 1] == null) {
                                         td.nativeStack[totalThread - 1] = new String();
@@ -3835,7 +3836,7 @@ public class FileTask {
 
                             if (td != null) {
                                 if (line.startsWith("\"") && line.indexOf(threadSignature) >= 0) {
-                                    i = line.indexOf(threadIDSignatureSolaris);
+                                    int i = line.indexOf(threadIDSignatureSolaris);
                                     if (i != -1) {
                                         td.name[totalThread] = line.substring(1, line.indexOf("\"", 1));
 
@@ -3898,7 +3899,7 @@ public class FileTask {
                                         if (line.startsWith(deadlockSignatureSolaris131) || line.startsWith(deadlockSignatureSolaris142)) {
                                             for (; line != null && (!line.startsWith("Found ") || !line.endsWith(" deadlock.")) && (!line.startsWith("Found ") || !line.endsWith(" deadlocks.")); line = in.readLine()) {
                                                 if (line.startsWith("\"")) {
-                                                    i = line.indexOf("\":");
+                                                    int i = line.indexOf("\":");
                                                     if (i != -1) {
                                                         if (td.deadlock == null) {
                                                             td.deadlock = new ArrayList();
@@ -3925,7 +3926,7 @@ public class FileTask {
                                             }
                                         }
                                     } else {
-                                        i = line.indexOf("- ");
+                                        int i = line.indexOf("- ");
                                         if (i != -1 && totalThread != 0) {
                                             if (td.javaStack[totalThread - 1] == null) {
                                                 td.javaStack[totalThread - 1] = new String();
@@ -3938,7 +3939,7 @@ public class FileTask {
                                         }
                                     }
                                 } else {
-                                    i = line.indexOf("at ");
+                                    int i = line.indexOf("at ");
                                     if (i != -1 && totalThread != 0) {
                                         if (td.javaStack[totalThread - 1] == null) {
                                             td.javaStack[totalThread - 1] = new String();
@@ -3970,7 +3971,7 @@ public class FileTask {
                     } else {
                         td.mdump = (MonitorDump[]) this.monList.toArray(new MonitorDump[this.monList.size()]);
                         if (td.isNewFormat) {
-                            for (i = 0; i < td.mdump.length; ++i) {
+                            for (int i = 0; i < td.mdump.length; ++i) {
                                 if (td.mdump[i].waiting != null) {
                                     long monitorOwner = td.getSys_ThreadFromTID(td.mdump[i].owner);
                                     if (this.debug) {
@@ -4008,7 +4009,7 @@ public class FileTask {
         int size;
         size = threadInfo.threadDumps.size();
 
-        for (i = 0; i < size; ++i) {
+        for (int i = 0; i < size; ++i) {
             ThreadDump td;
             td = (ThreadDump) threadInfo.threadDumps.get(i);
 
