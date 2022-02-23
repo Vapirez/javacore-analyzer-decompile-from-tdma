@@ -201,73 +201,6 @@ public class FileTask {
         this.lengthOfTask = 1000;
     }
 
-//    public FileTask(File[] f, int fileSequenceNumber, String outputHTMLFileName) {
-//        this.file = f;
-//        this.outputHTMLFileName = outputHTMLFileName;
-//        this.lengthOfTask = 1000;
-//        this.fileSequenceNumber = fileSequenceNumber;
-//    }
-//
-//    public void checkIdle(String st) {
-//        if (st != null && st.length() != 0) {
-//            String temp = "";
-//            String str = st;
-//            byte s = 0;
-//
-//            while (true) {
-//                int p = str.indexOf("(");
-//                if (p == -1) {
-//                    break;
-//                }
-//
-//                temp = temp + str.substring(s, p);
-//                str = str.substring(p + 1);
-//                int n = str.indexOf("<BR>");
-//                if (n == -1) {
-//                    break;
-//                }
-//
-//                str = str.substring(n);
-//                s = 0;
-//            }
-//
-//            if (temp.compareTo(idle5) == 0 || temp.compareTo(idle4) == 0) {
-//                System.out.println("IDLE");
-//            }
-//
-//        }
-//    }
-//
-//    public void checkIdle(String st, int index) {
-//        if (st != null && st.length() != 0) {
-//            String temp = "";
-//            String str = st;
-//            byte s = 0;
-//
-//            while (true) {
-//                int p = str.indexOf("(");
-//                if (p == -1) {
-//                    break;
-//                }
-//
-//                temp = temp + str.substring(s, p);
-//                str = str.substring(p + 1);
-//                int n = str.indexOf("<BR>");
-//                if (n == -1) {
-//                    break;
-//                }
-//
-//                str = str.substring(n);
-//                s = 0;
-//            }
-//
-//            if (temp.compareTo(idle5) == 0 || temp.compareTo(idle4) == 0) {
-//                System.out.println("IDLE");
-//            }
-//
-//        }
-//    }
-
     public String getStrippedStackTrace(String str) {
         if (str.indexOf("(") == -1) {
             return str;
@@ -326,109 +259,6 @@ public class FileTask {
             }
         }
     }
-
-//    public void checkIdleOld(String st, int index, ThreadDump td) {
-//        if (st != null && st.length() != 0) {
-//            String temp = "";
-//            String str = st;
-//            byte s = 0;
-//
-//            while (true) {
-//                int p = str.indexOf("(");
-//                if (p == -1) {
-//                    break;
-//                }
-//
-//                int lock = str.substring(s, p).indexOf("- lock");
-//                if (lock == -1) {
-//                    lock = str.substring(s, p).indexOf("- wait");
-//                }
-//
-//                if (lock != -1) {
-//                    str = str.substring(p + 1);
-//                } else {
-//                    temp = temp + str.substring(s, p);
-//                    str = str.substring(p + 1);
-//                }
-//
-//                int n = str.indexOf("<BR>");
-//                if (n == -1) {
-//                    break;
-//                }
-//
-//                str = str.substring(n);
-//                s = 0;
-//            }
-//
-//            if (temp.compareTo(idle5) != 0 && temp.compareTo(idle4) != 0) {
-//                if (temp.compareTo(kal4) != 0 && temp.compareTo(kal5) != 0 && temp.compareTo(kalSSL5) != 0 && temp.compareTo(kal04) != 0 && temp.compareTo(kal05) != 0 && temp.compareTo(kalSSL05) != 0) {
-//                    if (temp.compareTo(listen) != 0 && temp.compareTo(listenSSL) != 0 && temp.compareTo(listen2SSL) != 0 && temp.compareTo(listen3SSL) != 0) {
-//                        if (temp.compareTo(rr4) == 0 || temp.compareTo(rrSSL4) == 0 || temp.compareTo(rr5) == 0 || temp.compareTo(rrSSL5) == 0 || temp.compareTo(rr4) == 0 || temp.compareTo(rrSSL4) == 0 || temp.compareTo(rr5) == 0 || temp.compareTo(rrSSL5) == 0) {
-//                            td.macro[index] = 4;
-//                        }
-//                    } else {
-//                        td.macro[index] = 3;
-//                    }
-//                } else {
-//                    td.macro[index] = 2;
-//                }
-//            } else {
-//                td.macro[index] = 1;
-//            }
-//        }
-//    }
-//
-//    public void checkIdle2(String st, int index, ThreadDump td) {
-//        if (st != null && st.length() != 0) {
-//            String temp = "";
-//            String str = st;
-//            byte s = 0;
-//
-//            while (true) {
-//                int p = str.indexOf("(");
-//                if (p == -1) {
-//                    break;
-//                }
-//
-//                int lock = str.substring(s, p).indexOf("- lock");
-//                if (lock == -1) {
-//                    lock = str.substring(s, p).indexOf("- wait");
-//                }
-//
-//                if (lock != -1) {
-//                    str = str.substring(p + 1);
-//                } else {
-//                    temp = temp + str.substring(s, p);
-//                    str = str.substring(p + 1);
-//                }
-//
-//                int n = str.indexOf("<BR>");
-//                if (n == -1) {
-//                    break;
-//                }
-//
-//                str = str.substring(n);
-//                s = 0;
-//            }
-//
-//            if (temp.compareTo(idle5) != 0 && temp.compareTo(idle4) != 0) {
-//                if (temp.compareTo(kal4) != 0 && temp.compareTo(kal5) != 0 && temp.compareTo(kalSSL5) != 0 && temp.compareTo(kal04) != 0 && temp.compareTo(kal05) != 0 && temp.compareTo(kalSSL05) != 0) {
-//                    if (temp.compareTo(listen) != 0 && temp.compareTo(listenSSL) != 0 && temp.compareTo(listen2SSL) != 0 && temp.compareTo(listen3SSL) != 0) {
-//                        if (temp.compareTo(rr4) == 0 || temp.compareTo(rrSSL4) == 0 || temp.compareTo(rr5) == 0 || temp.compareTo(rrSSL5) == 0 || temp.compareTo(rr4) == 0 || temp.compareTo(rrSSL4) == 0 || temp.compareTo(rr5) == 0 || temp.compareTo(rrSSL5) == 0) {
-//                            td.macro[index] = 4;
-//                        }
-//                    } else {
-//                        td.macro[index] = 3;
-//                    }
-//                } else {
-//                    td.macro[index] = 2;
-//                }
-//            } else {
-//                td.macro[index] = 1;
-//            }
-//
-//        }
-//    }
 
 //    public String generateMonitorDetail(int sn, ThreadDump td) {
 //        if (td == null || td.mdump == null) {
@@ -1833,7 +1663,7 @@ public class FileTask {
                                     break;
                                 }
 
-                                if (line.startsWith("NULL")) {
+                                if (line.startsWith(nullSignature)) {
                                     if (inArgs) {
                                         td.summary = td.summary + "</table><BR><BR>";
                                         inArgs = false;
@@ -1920,9 +1750,9 @@ public class FileTask {
                                 }
 
                                 if (line.startsWith("0MEMUSER")) {
-                                    td.nativeMemoryTree = new JTree();
-                                    DefaultMutableTreeNode[] levels = new DefaultMutableTreeNode[20];
-                                    levels[0] = new DefaultMutableTreeNode("Native Memory : Size / Allocation");
+                                    td.nativeMemoryTree = new CustomerTree();
+                                    CustomerTreeNode[] levels = new CustomerTreeNode[20];
+                                    levels[0] = new CustomerTreeNode("Native Memory : Size / Allocation");
                                     for (; line != null && line.contains(MEMUSER); line = in.readLine()) {
                                         int level = Integer.parseInt(line.substring(0, line.indexOf(MEMUSER)));
                                         int i = line.indexOf(":");
@@ -1932,13 +1762,13 @@ public class FileTask {
                                                 j = i - 4;
                                             }
 
-                                            DefaultMutableTreeNode jre = new DefaultMutableTreeNode(line.substring(j + 1));
+                                            CustomerTreeNode jre = new CustomerTreeNode(line.substring(j + 1));
                                             levels[level - 1].add(jre);
                                             levels[level] = jre;
                                         }
                                     }
 
-                                    td.nativeMemoryTree = new JTree(levels[0]);
+                                    td.nativeMemoryTree = new CustomerTree(levels[0]);
                                     break;
                                 }
 
@@ -2223,7 +2053,7 @@ public class FileTask {
                                     if (line.indexOf(nullSignature) >= 0) {
                                         line = in.readLine();
                                         if (line.indexOf(memorySegmentSignature626) >= 0) {
-                                            long usedIM  = 0L;
+                                            long usedIM = 0L;
                                             long reservedIM = 0L;
                                             countIM = 0L;
 //                                            Xmt = null;
@@ -3093,7 +2923,7 @@ public class FileTask {
                                                         td.deadlock.add(newSysThread);
                                                     }
                                                 }
-                                            } else if (line.startsWith("NULL")) {
+                                            } else if (line.startsWith(nullSignature)) {
                                                 if (td.deadlock == null) {
                                                     td.deadlock = new ArrayList();
                                                 }
@@ -3857,7 +3687,7 @@ public class FileTask {
                                     if (i != -1) {
                                         td.nid[totalThread] = (long) Integer.decode(line.substring(i + threadNativeIDSignatureSolaris.length(), line.indexOf(" ", i + 1)));
                                         String stateString = line.substring(line.indexOf(" ", i + 1) + 1);
-                                        if (stateString.startsWith("lwp_id=")) {
+                                        if (stateString.startsWith(lwp_id)) {
                                             stateString = stateString.substring(stateString.indexOf(" ") + 1);
                                         }
 
@@ -3962,6 +3792,32 @@ public class FileTask {
 
                         if (td != null) {
                             threadInfo.threadDumps.add(td);
+                        }
+                    }
+
+                    //合并threadDetail
+                    if (totalThread > 0) {
+                        td.threadDetailList = new ArrayList<>(totalThread);
+                        for (int i = 0; i < totalThread; i++) {
+                            ThreadDetail threadDetail = new ThreadDetail();
+                            threadDetail.name = td.name[i];
+                            threadDetail.pattern = td.pattern[i];
+                            threadDetail.isDeadlock = td.isDeadlock[i];
+                            threadDetail.nid = td.nid[i];
+                            threadDetail.state = td.state[i];
+                            threadDetail.stateValue = td.getState(i);
+                            threadDetail.priority = td.priority[i];
+                            threadDetail.javaStack = td.javaStack[i];
+                            if (td.javaStack[i] != null) {
+                                threadDetail.javaStackList = Arrays.asList(td.javaStack[i].split("<BR>"));
+                            }
+                            threadDetail.currentMethod = td.getCurrentMethod(i);
+                            threadDetail.javaStackDepth = td.javaStackDepth[i];
+                            threadDetail.macro = td.macro[i];
+                            threadDetail.nativeStack = td.nativeStack[i];
+                            threadDetail.sys_thread = td.sys_thread[i];
+                            threadDetail.tid = td.tid[i];
+                            td.threadDetailList.add(threadDetail);
                         }
                     }
 
@@ -4096,98 +3952,6 @@ public class FileTask {
                 this.checkIdle(td.javaStack[x], x, td);
             }
 
-//            if (td.sortedArray == null) {
-//                td.sortedArray = new long[2][td.sys_thread.length];
-//
-//                for (int j = 0; j < td.sys_thread.length; ++j) {
-//                    td.sortedArray[0][j] = td.sys_thread[j];
-//                    td.sortedArray[1][j] = (long) j;
-//                }
-//
-//                Arrays2.sort(td.sortedArray);
-//            }
-//
-//            if (td.stateArray == null) {
-//                td.stateArray = new int[td.state.length];
-//                int[][] tempArray = new int[2][td.state.length];
-//
-//                for (int j = 0; j < td.state.length; tempArray[1][j] = j++) {
-//                    tempArray[0][j] = td.state[j];
-//                }
-//
-//                Arrays2.sort(tempArray);
-//
-//                for (int j = 0; j < td.state.length; ++j) {
-//                    td.stateArray[j] = tempArray[1][j];
-//                }
-//
-//                in = null;
-//            }
-//
-//            long[][] tempArray;
-//            if (td.idArray == null) {
-//                td.idArray = new int[td.nid.length];
-//                tempArray = new long[2][td.nid.length];
-//
-//                for (int j = 0; j < td.nid.length; ++j) {
-//                    tempArray[0][j] = td.nid[j];
-//                    tempArray[1][j] = (long) j;
-//                }
-//
-//                Arrays2.sort(tempArray);
-//
-//                for (int j = 0; j < td.nid.length; ++j) {
-//                    td.idArray[j] = (int) tempArray[1][j];
-//                }
-//
-//                in = null;
-//            }
-//
-//            if (td.nameArray == null) {
-//                td.nameArray = new int[td.tid.length];
-//                String EMPTY = "";
-//                String[] tempString = new String[td.name.length];
-//
-//                for (int j = 0; j < td.nameArray.length; td.nameArray[j] = j++) {
-//                    tempString[j] = td.name[j];
-//                    if (tempString[j] == null) {
-//                        tempString[j] = EMPTY;
-//                    }
-//                }
-//
-//                Arrays2.sort(tempString, td.nameArray);
-//                threadLine = null;
-//            }
-//
-//            if (td.currentMethodArray == null) {
-//                td.currentMethodArray = new int[td.tid.length];
-//                String[] tempString = new String[td.name.length];
-//
-//                for (int j = 0; j < td.currentMethodArray.length; td.currentMethodArray[j] = j++) {
-//                    tempString[j] = td.getCurrentMethod(j);
-//                }
-//
-//                Arrays2.sort(tempString, td.currentMethodArray);
-//                in = null;
-//            }
-//
-//            if (td.sortedDepthArray == null) {
-//                td.sortedDepthArray = new int[td.nid.length];
-//                tempArray = new long[2][td.nid.length];
-//
-//                for (int j = 0; j < td.nid.length; ++j) {
-//                    tempArray[0][j] = (long) td.javaStackDepth[j];
-//                    tempArray[1][j] = (long) j;
-//                }
-//
-//                Arrays2.sort(tempArray);
-//
-//                for (int j = 0; j < td.nid.length; ++j) {
-//                    td.sortedDepthArray[j] = (int) tempArray[1][j];
-//                }
-//
-//                in = null;
-//            }
         }
 
         this.done = true;

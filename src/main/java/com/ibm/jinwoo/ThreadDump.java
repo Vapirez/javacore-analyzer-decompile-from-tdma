@@ -16,7 +16,8 @@ import javax.swing.JTable;
 import javax.swing.JTree;
 
 public class ThreadDump {
-    public JTree nativeMemoryTree = null;
+    public List<ThreadDetail> threadDetailList = null;
+    public CustomerTree nativeMemoryTree = null;
     public String homeDir = null;
     public String dllDir = null;
     public String sysCP = null;
@@ -334,7 +335,7 @@ public class ThreadDump {
 //
 //        return summary + "</table></UL>";
 //    }
-//
+
     public String getName(int idx) {
         return this.name[idx];
     }
