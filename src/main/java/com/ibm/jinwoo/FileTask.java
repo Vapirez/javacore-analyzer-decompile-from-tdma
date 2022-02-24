@@ -3795,32 +3795,6 @@ public class FileTask {
                         }
                     }
 
-                    //合并threadDetail
-                    if (totalThread > 0) {
-                        td.threadDetailList = new ArrayList<>(totalThread);
-                        for (int i = 0; i < totalThread; i++) {
-                            ThreadDetail threadDetail = new ThreadDetail();
-                            threadDetail.name = td.name[i];
-                            threadDetail.pattern = td.pattern[i];
-                            threadDetail.isDeadlock = td.isDeadlock[i];
-                            threadDetail.nid = td.nid[i];
-                            threadDetail.state = td.state[i];
-                            threadDetail.stateValue = td.getState(i);
-                            threadDetail.priority = td.priority[i];
-                            threadDetail.javaStack = td.javaStack[i];
-                            if (td.javaStack[i] != null) {
-                                threadDetail.javaStackList = Arrays.asList(td.javaStack[i].split("<BR>"));
-                            }
-                            threadDetail.currentMethod = td.getCurrentMethod(i);
-                            threadDetail.javaStackDepth = td.javaStackDepth[i];
-                            threadDetail.macro = td.macro[i];
-                            threadDetail.nativeStack = td.nativeStack[i];
-                            threadDetail.sys_thread = td.sys_thread[i];
-                            threadDetail.tid = td.tid[i];
-                            td.threadDetailList.add(threadDetail);
-                        }
-                    }
-
                     in.close();
                     if (this.monList.size() == 0) {
                         td.mdump = null;
@@ -3955,6 +3929,47 @@ public class FileTask {
         }
 
         this.done = true;
+
+        //后置处理，解析出threadDump内的thread列表详细数据
+        //合并threadDetail
+        for (int i = 0; i < size; ++i) {
+            ThreadDump td = (ThreadDump) threadInfo.threadDumps.get(i);
+            td.threadDetailList = new ArrayList<>(totalThread);
+            long totalThread1 = td.getTotalThread();
+            for (int j = 0; j < totalThread1; j++) {
+                ThreadDetail threadDetail = new ThreadDetail();
+                threadDetail.name = td.name[j];
+                threadDetail.pattern = td.pattern[j];
+                threadDetail.isDeadlock = td.isDeadlock[j];
+                threadDetail.nid = td.nid[j];
+                threadDetail.state = td.state[j];
+                threadDetail.stateValue = td.getState(j);
+                threadDetail.priority = td.priority[j];
+                threadDetail.javaStack = td.javaStack[j];
+                if (td.javaStack[j] != null) {
+                    threadDetail.javaStackList = Arrays.asList(td.javaStack[j].split("<BR>"));
+                }
+                threadDetail.currentMethod = td.getCurrentMethod(j);
+                threadDetail.javaStackDepth = td.javaStackDepth[j];
+                threadDetail.macro = td.macro[j];
+                threadDetail.nativeStack = td.nativeStack[j];
+                threadDetail.sys_thread = td.sys_thread[j];
+                threadDetail.tid = td.tid[j];
+                td.threadDetailList.add(threadDetail);
+            }
+
+            //计算各状态分布
+            ThreadStateDistribute threadStateDistribute = new ThreadStateDistribute(td);
+            td.threadStateDistribute = threadStateDistribute;
+
+            //计算方法分布
+            ThreadMethodDistribute threadMethodDistribute = new ThreadMethodDistribute(td);
+            td.threadMethodDistribute = threadMethodDistribute;
+
+            //计算聚合数据分布
+            ThreadAggregationDistribute threadAggregationDistribute = new ThreadAggregationDistribute(td);
+            td.threadAggregationDistribute = threadAggregationDistribute;
+        }
 
 //            return  this.generateReport(threadInfo);
         return null;

@@ -5,17 +5,14 @@
 
 package com.ibm.jinwoo;
 
-import com.ibm.jinwoo.Arrays2;
-import com.ibm.jinwoo.MonitorDump;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
-import javax.swing.JTable;
-import javax.swing.JTree;
 
 public class ThreadDump {
+    public ThreadAggregationDistribute threadAggregationDistribute = null;
+    public ThreadMethodDistribute threadMethodDistribute = null;
+    public ThreadStateDistribute threadStateDistribute = null;
     public List<ThreadDetail> threadDetailList = null;
     public CustomerTree nativeMemoryTree = null;
     public String homeDir = null;
@@ -201,17 +198,17 @@ public class ThreadDump {
         }
     }
 
-//    public long getDeadlock() {
-//        long count = 0L;
-//
-//        for(int i = 0; i < this.isDeadlock.length; ++i) {
-//            if (this.isDeadlock[i]) {
-//                ++count;
-//            }
-//        }
-//
-//        return count;
-//    }
+    public long getDeadlock() {
+        long count = 0L;
+
+        for(int i = 0; i < this.isDeadlock.length; ++i) {
+            if (this.isDeadlock[i]) {
+                ++count;
+            }
+        }
+
+        return count;
+    }
 //
 //    public int getIndexFromName(String threadName) {
 //        for(int i = 0; i < this.name.length; ++i) {
@@ -349,17 +346,17 @@ public class ThreadDump {
 //        return this.nativeStack[idx];
 //    }
 //
-//    public long getOWait() {
-//        long count = 0L;
-//
-//        for(int i = 0; i < this.state.length; ++i) {
-//            if (this.state[i] == 4) {
-//                ++count;
-//            }
-//        }
-//
-//        return count;
-//    }
+    public long getOWait() {
+        long count = 0L;
+
+        for(int i = 0; i < this.state.length; ++i) {
+            if (this.state[i] == 4) {
+                ++count;
+            }
+        }
+
+        return count;
+    }
 //
 //    public String getOwningMonitor(int idx) {
 //        if (this.mdump == null) {
@@ -410,17 +407,17 @@ public class ThreadDump {
         }
     }
 //
-//    public long getRunnable() {
-//        long count = 0L;
-//
-//        for(int i = 0; i < this.state.length; ++i) {
-//            if (this.state[i] == 0) {
-//                ++count;
-//            }
-//        }
-//
-//        return count;
-//    }
+    public long getRunnable() {
+        long count = 0L;
+
+        for(int i = 0; i < this.state.length; ++i) {
+            if (this.state[i] == 0) {
+                ++count;
+            }
+        }
+
+        return count;
+    }
 //
 //    public String getSortedCurrentMethod(int idx) {
 //        return this.getCurrentMethod(this.currentMethodArray[idx]);
@@ -519,17 +516,17 @@ public class ThreadDump {
 //        }
 //    }
 //
-//    public long getSuspended() {
-//        long count = 0L;
-//
-//        for(int i = 0; i < this.state.length; ++i) {
-//            if (this.state[i] == 3) {
-//                ++count;
-//            }
-//        }
-//
-//        return count;
-//    }
+    public long getSuspended() {
+        long count = 0L;
+
+        for(int i = 0; i < this.state.length; ++i) {
+            if (this.state[i] == 3) {
+                ++count;
+            }
+        }
+
+        return count;
+    }
 //
     public long getSys_ThreadFromTID(long tid) {
         for(int i = 0; i < this.sys_thread.length; ++i) {
@@ -591,40 +588,40 @@ public class ThreadDump {
             return monitors;
         }
     }
-//
-//    public long getWCondition() {
-//        long count = 0L;
-//
-//        for(int i = 0; i < this.state.length; ++i) {
-//            if (this.state[i] == 1) {
-//                ++count;
-//            }
-//        }
-//
-//        return count;
-//    }
-//
-//    public long getWMonitor() {
-//        long count = 0L;
-//
-//        for(int i = 0; i < this.state.length; ++i) {
-//            if (this.state[i] == 2) {
-//                ++count;
-//            }
-//        }
-//
-//        return count;
-//    }
-//
-//    public long getParked() {
-//        long count = 0L;
-//
-//        for(int i = 0; i < this.state.length; ++i) {
-//            if (this.state[i] == 6) {
-//                ++count;
-//            }
-//        }
-//
-//        return count;
-//    }
+
+    public long getWCondition() {
+        long count = 0L;
+
+        for(int i = 0; i < this.state.length; ++i) {
+            if (this.state[i] == 1) {
+                ++count;
+            }
+        }
+
+        return count;
+    }
+
+    public long getWMonitor() {
+        long count = 0L;
+
+        for(int i = 0; i < this.state.length; ++i) {
+            if (this.state[i] == 2) {
+                ++count;
+            }
+        }
+
+        return count;
+    }
+
+    public long getParked() {
+        long count = 0L;
+
+        for(int i = 0; i < this.state.length; ++i) {
+            if (this.state[i] == 6) {
+                ++count;
+            }
+        }
+
+        return count;
+    }
 }
